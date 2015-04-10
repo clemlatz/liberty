@@ -1,0 +1,14 @@
+{
+  "name": "liberation",
+  "version": "0.0.1",
+  "description": "a great game",
+  "dependencies": {
+    "express": "^4.10.2"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Clément Bourgoin <cb@nokto.net> (http://nokto.net/)",
+  "license": "MIT"
+}
