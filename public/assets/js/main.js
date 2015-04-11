@@ -33,6 +33,11 @@ var OSD = new Array(10);
 var gamestatut = 0;
 var map;
 
+// Groupes
+var backgroundGroup;
+var prisonersGroup;
+var guardianGroup;
+
 io.on('join', function(player){
     var isowner=false;
 
@@ -96,7 +101,12 @@ launchworld = function(){
     //resizes the game world to match the layer dimensions
     backgroundlayer.resizeWorld();
 
-	// test
+	// Création des groupes
+	var backgroundGroup = game.add.group();
+	var prisonersGroup = game.add.group();
+	var guardianGroup = game.add.group();
+
+	backgroundGroup.addChild(prisonersGroup);
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
