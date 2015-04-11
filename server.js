@@ -14,9 +14,10 @@ function log(msg) {
 
 // Game
 var game = {
-  time: 120,
+  time: 10,
   sockets: [],
   players: [],
+  tower: null,
   timer: null,
   map: {
     height: 2688,
@@ -25,9 +26,25 @@ var game = {
   start: function() {
     var context = this;
     
+    
+    log('New game starting...');
+    
     // Reset time left to 120 seconds
-    this.time = 120;
+    this.time = 30;
     this.timer = setInterval( function() { context.tick(); }, 1000);
+    
+    // Reset roles for all players
+    for (i = 0, c = this.players.length; i < c; i++) {
+      this.players[i].role = 'prisoner';
+    }
+    
+    // Set a random player to be the in watch tower
+    var new_tower = this.players[Math.floor(Math.random() * this.players.length)];
+    if (new_tower) {
+      this.tower = new_tower;
+      this.tower.role = 
+      log('Player '+this.tower.id+' is in the watchtower');
+    }
     
     // Add 10 random bots
     var bot;
@@ -38,7 +55,7 @@ var game = {
     }
     io.sockets.emit('bots', game.bots); // Push bots to players
     
-    log('New game starting');
+    log('New game started!');
   },
   tick: function() {
     
@@ -87,6 +104,7 @@ io.on('connection', function(socket) {
   log('Player '+socket.player.id+' created');
   
   // Send players & bots to new player
+  socket.emit('role', socket.player.role)
   socket.emit('players', game.players);
   socket.emit('bots', game.bots);
   

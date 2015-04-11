@@ -24,6 +24,11 @@
       log(bots);
     });
     
+    // Receive current player role (on connection)
+    socket.on('role', function(role){
+      $('.role').text(role);
+    });
+    
     // Receive new player (when new player enters game)
     socket.on('player', function(player){
       log('Receive new player');
@@ -59,7 +64,7 @@
 </head>
 
 <body>
-  Hello liberty
+  Hello <span class="role"></span>
   
   <button class="move-up">Up</button>
   <button class="move-down">Down</button>
