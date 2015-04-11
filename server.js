@@ -1,5 +1,5 @@
 
-var app_version = '3';
+var app_version = '3.1';
 
 var express = require('express');
 var app = express();
@@ -34,8 +34,8 @@ var game = {
   timer: null,
   botNum: 3,
   map: {
-    height: 400,
-    width: 400
+    height: 2304,
+    width: 2034
   },
   start: function() {
     var context = this;
