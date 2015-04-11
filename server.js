@@ -126,21 +126,38 @@ Bot = function(x, y) {
   this.name = 'Bot';
 };
 
-Bot.prototype.move = function(io) {
-  var context = this,
-    delay = rand(0, 1000);
+function smoothMove(mob, iteration, direction) {
+  setTimeout( function() {
+    if (direction === 0) {
+      mob.y -= 5;
+      if (mob.y <= 0) {
+        mob.y = game.map.height;
+      }
+    } else if (direction == 1) {
+      mob.x -= 5;
+      if (mob.x < 0) {
+        mob.x == 0;
+      }
+    } else {
+      mob.x += 5;
+      if (mob.x >= game.map.width) {
+        mob.x = game.map.width;
+      }
+    }
+    io.sockets.emit('player', mob);
+  }, iteration * 50);
+}
 
-  this.x += rand(-1, 2) * game.botSpeed;
-  this.y -= rand(0, 1) * game.botSpeed;
+Bot.prototype.move = function(io) {
+  var bot = this,
+    direction = rand(0, 2),
+    delay = rand(0, 1000);
   
-  if (this.y < 0 || this.y > game.map.height) {
-    this.y = game.map.height;
-  } else if (this.x > game.map.width) {
-    this.x = game.map.width;
-  }
-  
-  // Push movement to players after a random delay
-  setTimeout( function() { io.sockets.emit('player', context); }, delay);
+  setTimeout( function() {
+    for (var i = 0; i < 10; i++) {
+      smoothMove(bot, i, direction);
+    }
+  }, delay);
 };
 
 // Start game
