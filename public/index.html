@@ -12,6 +12,10 @@
     
     /* SERVER SIDE EVENTS */
     
+    socket.on('start', function() {
+      console.log('Game started!')
+    });
+    
     // Receive player list (on connection)
     socket.on('players', function(players){
       log('Received players list');
@@ -25,9 +29,9 @@
       log(self);
     });
     
-    // Receive new player (when new player enters game)
+    // Receive player updated
     socket.on('player', function(player){
-      log('Receive new player');
+      log('Player updated');
       log(player);
     });
     

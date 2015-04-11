@@ -1,3 +1,6 @@
+
+var app_version = '1';
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -16,15 +19,20 @@ function log(msg) {
   io.sockets.emit('log', date+' : '+msg);
 }
 
+function rand(min, max) {
+  return Math.floor(Math.random() * max) + min;
+}
+
 // Game
 var game = {
   duration: 10, // duration of a game
+  waitDuration: 10, // duration between game
   time: this.duration, // time left on current game
   sockets: [],
   players: [],
   guard: null,
   timer: null,
-  botNum: 0,
+  botNum: 3,
   map: {
     height: 400,
     width: 400
@@ -32,7 +40,6 @@ var game = {
   start: function() {
     var context = this;
     
-    io.sockets.emit('start', true);
     log('New game starting...');
     
     // Reset time left to game duration
@@ -62,7 +69,7 @@ var game = {
       game.bots.push(bot);
     }
     
-    io.sockets.emit('players', this.players.concat(this.bots)); // Push bots & players
+    io.sockets.emit('start', this.players.concat(this.bots)); // Push bots & players
     
     log('New game started!');
   },
@@ -76,15 +83,26 @@ var game = {
     // If time is up, start a new game
     if (this.time <= 0) {
       clearInterval(this.timer);
-      this.start();
+      this.stop();
       return;
     }
     
-    // Move bots
+    // Random bots movement
     for (i = 0, c = game.bots.length; i < c; i++) {
-      game.bots[i].x += Math.floor(Math.random() * 10);
+      game.bots[i].move(io);
     }
-    // io.sockets.emit('players', game.players.concat(game.bots));
+  },
+  stop: function() {
+    var context = this;
+          
+    // Broadcast end of game
+    io.sockets.emit('stop', this.time);
+    
+    // Game stoped
+    log('Game stopped!');
+    
+    // After waitDuration time, start a new game
+    setTimeout( function() { context.start(); }, this.waitDuration * 1000);
   }
 };
 
@@ -102,6 +120,16 @@ Bot = function(x, y) {
   this.x = x || 0;
   this.y = y || Math.floor(Math.random() * 400);
   this.role = 'prisoner'; // bots are always prisoners
+};
+
+Bot.prototype.move = function(io) {
+  var context = this,
+    delay = rand(0, 1000);
+
+  this.x += rand(0, 10);
+  this.y += rand(-10, 10);
+  
+  setTimeout( function() { io.sockets.emit('player', context); }, delay);
 };
 
 // Start game
