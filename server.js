@@ -1,5 +1,5 @@
 
-var app_version = '1';
+var app_version = '2';
 
 var express = require('express');
 var app = express();
@@ -110,7 +110,8 @@ var game = {
 Player = function(x, y, role) {
   this.id = shortid.generate();
   this.x = x || 0;
-  this.y = y || Math.floor(Math.random() * 400);
+  this.y = y || Math.floor(Math.random() * game.map.height);
+  this.username = null;
   this.role = role || 'prisoner'; // prisoner or gard
 };
 
@@ -118,7 +119,7 @@ Player = function(x, y, role) {
 Bot = function(x, y) {
   this.id = shortid.generate();
   this.x = x || 0;
-  this.y = y || Math.floor(Math.random() * 400);
+  this.y = y || Math.floor(Math.random() * game.map.height);
   this.role = 'prisoner'; // bots are always prisoners
 };
 
@@ -138,20 +139,24 @@ game.start();
 // On player connection
 io.on('connection', function(socket) {
   
-  // Add new user to socket list
-  game.sockets.push(socket);
+  socket.emit('connected', app_version);
   
-  // Create a new Player
-  socket.player = new Player();
-  game.players.push(socket.player);
-  log('Player '+socket.player.id+' created');
-  
-  // Send players & bots to new player
-  socket.emit('initia', socket.player);
-  socket.emit('players', game.players.concat(game.bots));
-  
-  // Broadcast new player to all players
-  socket.broadcast.emit('players', game.players.concat(game.bots));
+  socket.on('name', function(name) {
+    
+    // Create a new Player
+    socket.player = new Player();
+    socket.player.name = name;
+    game.players.push(socket.player);
+    log('Player '+socket.player.name+' created');
+    
+    // Send players & bots to new player
+    socket.emit('initia', socket.player);
+    socket.emit('players', game.players.concat(game.bots));
+    
+    // Broadcast new player to all players
+    socket.broadcast.emit('players', game.players.concat(game.bots));
+    
+  });
   
   // Prisonner updated position
   socket.on('player', function(pos) {
@@ -208,12 +213,12 @@ io.on('connection', function(socket) {
     var index = game.players.indexOf(socket.player);
     if (index > -1) {
       game.players.splice(index, 1);
+      
+      // Broadcast updated list
+      socket.broadcast.emit('players', game.players.concat(game.bots));
+      
+      log('Player '+socket.player.id+' disconnected');
     }
-    
-    // Broadcast updated list
-    socket.broadcast.emit('players', game.players.concat(game.bots));
-    
-    log('Player '+socket.player.id+' disconnected');
   });
   
 });

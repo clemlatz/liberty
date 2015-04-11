@@ -10,6 +10,17 @@
       console.log(msg);
     }
     
+    /* INIT */
+    
+    socket.on('connected', function(version) {
+      console.log('Connected on Liberty server v'+version);
+      
+      var name = prompt("What's your name?");
+      if (name) {
+        socket.emit('name', name);
+      }
+    });
+    
     /* SERVER SIDE EVENTS */
     
     socket.on('start', function() {
@@ -86,8 +97,8 @@
 
 <body>
   <div id="server">
-    <span class="players"></span> players | 
-    <span class="time"></span> seconds left
+    <span class="players">0</span> players | 
+    <span class="time">0</span> seconds left
   </div>
   
   <div id="log">
