@@ -4,7 +4,7 @@ function preload() {
 
 
 
-    game.load.tilemap('level1', 'assets/tilemaps/proto_test.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
 
     game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
