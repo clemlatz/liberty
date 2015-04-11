@@ -115,7 +115,7 @@ launchworld = function(){
 	//backgroundGroup.addChild(prisonersGroup);
 
 
-    //game.world.bringToTop(splayer);
+    game.world.bringToTop(splayer);
     game.world.addAt(splayer, 3);
 
     game.physics.enable(splayer, Phaser.Physics.ARCADE);
