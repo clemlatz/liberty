@@ -19,7 +19,7 @@ var myid;
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect();
+var io = io.connect('http://libertyjam.azurewebsites.net/');
 
 
 var gamestart = false;
@@ -28,6 +28,22 @@ var gamestart = false;
 var OSD = new Array(10);
 
 var gamestatut = 0;
+
+io.on('join', function(player){
+    var isowner=false;
+
+    var j  = new Joueur(player.id,player.role,isowner);
+    j.x=player.x;
+    j.y=player.y;
+
+    lesjoueurs.add(j);
+});
+
+io.on('leave', function(player){
+
+
+    lesjoueurs.add(j);
+});
 
 /**
  * Debut de la partie
