@@ -13,6 +13,7 @@ app.use(express.static('public'));
 function log(msg) {
   var date = new Date();
   console.log(date+' : '+msg);
+  io.sockets.emit('log', date+' : '+msg);
 }
 
 // Game
@@ -61,7 +62,6 @@ var game = {
       game.bots.push(bot);
     }
     
-    console.log(this.players.concat(this.bots));
     io.sockets.emit('players', this.players.concat(this.bots)); // Push bots & players
     
     log('New game started!');
@@ -85,8 +85,6 @@ var game = {
       game.bots[i].x += Math.floor(Math.random() * 10);
     }
     // io.sockets.emit('players', game.players.concat(game.bots));
-    
-    log('Time left: '+this.time+' sec.');
   }
 };
 
