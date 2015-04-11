@@ -108,7 +108,8 @@ launchworld = function(){
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
-	prisonersGroup.addChild(backgroundlayer);
+	backgroundGroup.addChild(backgroundlayer);
+	prisonersGroup.addChild(backgroundGroup);
 	prisonersGroup.addChild(splayer);
 	//prisonersGroup.addChild(guardianGroup);
 	//backgroundGroup.addChild(prisonersGroup);
