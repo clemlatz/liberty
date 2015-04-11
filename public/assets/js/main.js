@@ -9,7 +9,7 @@ function preload() {
 
     game.load.image("floor","assets/images/floor.png");
 
-    game.load.audio('Music', 'assets/sounds/Music_Gameplay.wav');
+//    game.load.audio('Music', 'assets/sounds/Music_Gameplay.wav');
 
 }
 
@@ -19,7 +19,7 @@ var myid;
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect('http://');
+var io = io.connect();
 
 
 var gamestart = false;
