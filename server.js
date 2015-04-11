@@ -20,7 +20,7 @@ function log(msg) {
 }
 
 function rand(min, max) {
-  return Math.floor(Math.random() * max) + min;
+  return Math.floor(Math.random() * (max + 1)) + min;
 }
 
 // Game
