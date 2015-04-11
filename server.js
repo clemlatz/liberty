@@ -111,7 +111,7 @@ Player = function(x, y, role) {
   this.id = shortid.generate();
   this.x = x || 0;
   this.y = y || Math.floor(Math.random() * game.map.height);
-  this.username = null;
+  this.name = null;
   this.role = role || 'prisoner'; // prisoner or gard
   this.score = 0;
 };
@@ -122,6 +122,7 @@ Bot = function(x, y) {
   this.x = x || 0;
   this.y = y || Math.floor(Math.random() * game.map.height);
   this.role = 'prisoner'; // bots are always prisoners
+  this.name = 'Bot';
 };
 
 Bot.prototype.move = function(io) {
