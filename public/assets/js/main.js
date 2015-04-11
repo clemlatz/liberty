@@ -25,7 +25,7 @@ var myid;
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect('http://libertyjam.azurewebsites.net/');
+var io = io.connect();
 
 
 var gamestart = false;

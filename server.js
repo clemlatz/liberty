@@ -27,17 +27,16 @@ function rand(min, max) {
 var game = {
   duration: process.env.GAME_DURATION || 120, // duration of a game
   waitDuration: process.env.WAIT_DURATION || 10, // duration between game
+  botNum: 3,
+  map: {
+    height: 2304,
+    width: 2304
+  },
   time: this.duration, // time left on current game
   sockets: [],
   players: [],
   guard: null,
   timer: null,
-  botNum: 3,
-  botSpeed: 25,
-  map: {
-    height: 400,
-    width: 400
-  },
   start: function() {
     var context = this;
     
@@ -50,8 +49,8 @@ var game = {
     // Reset roles & positions of all players
     for (i = 0, c = this.players.length; i < c; i++) {
       this.players[i].role = 'prisoner';
-      this.players[i].x = Math.floor(Math.random() * this.map.width);
-      this.players[i].y = this.map.height;
+      this.players[i].x = Math.floor(Math.random() * (this.map.width - 100));
+      this.players[i].y = this.map.height - 100;
     }
     
     // Set a random player to be the in watch tower
@@ -110,8 +109,8 @@ var game = {
 // Player
 Player = function(x, y, role) {
   this.id = shortid.generate();
-  this.x = x || Math.floor(Math.random() * game.map.width);
-  this.y = y || game.map.height;
+  this.x = x || Math.floor(Math.random() * (game.map.width - 100));
+  this.y = y || game.map.height - 100;
   this.name = null;
   this.role = role || 'prisoner'; // prisoner or gard
   this.score = 0;
@@ -120,8 +119,8 @@ Player = function(x, y, role) {
 // Bot
 Bot = function(x, y) {
   this.id = shortid.generate();
-  this.x = x || Math.floor(Math.random() * game.map.height);
-  this.y = y || game.map.height;
+  this.x = x || Math.floor(Math.random() * (game.map.width - 100));
+  this.y = y || game.map.height - 100;
   this.role = 'prisoner'; // bots are always prisoners
   this.name = 'Bot';
 };
