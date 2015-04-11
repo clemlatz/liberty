@@ -102,20 +102,19 @@ launchworld = function(){
     backgroundlayer.resizeWorld();
 
 	// Création des groupes
-	var backgroundGroup = game.add.group();
-	var prisonersGroup = game.add.group();
-	var guardianGroup = game.add.group();
+	//var backgroundGroup = game.add.group();
+	//var prisonersGroup = game.add.group();
+	//var guardianGroup = game.add.group();
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
 	//prisonersGroup.addChild(backgroundGroup);
-	prisonersGroup.addChild(splayer);
-	backgroundGroup.addChild(backgroundlayer);
-	backgroundGroup.addChild(prisonersGroup);
+	//prisonersGroup.addChild(splayer);
+	//backgroundGroup.addChild(backgroundlayer);
+	//backgroundGroup.addChild(prisonersGroup);
 	
 	//prisonersGroup.addChild(guardianGroup);
 	//backgroundGroup.addChild(prisonersGroup);
-
 
     game.world.bringToTop(splayer);
     game.world.addAt(splayer, 3);
