@@ -33,9 +33,10 @@ var game = {
   guard: null,
   timer: null,
   botNum: 3,
+  botSpeed: 25,
   map: {
-    height: 2304,
-    width: 2034
+    height: 400,
+    width: 400
   },
   start: function() {
     var context = this;
@@ -49,8 +50,8 @@ var game = {
     // Reset roles & positions of all players
     for (i = 0, c = this.players.length; i < c; i++) {
       this.players[i].role = 'prisoner';
-      this.players[i].x = 0;
-      this.players[i].y = Math.floor(Math.random() * this.map.height);
+      this.players[i].x = Math.floor(Math.random() * this.map.width);
+      this.players[i].y = this.map.height;
     }
     
     // Set a random player to be the in watch tower
@@ -109,8 +110,8 @@ var game = {
 // Player
 Player = function(x, y, role) {
   this.id = shortid.generate();
-  this.x = x || 0;
-  this.y = y || Math.floor(Math.random() * game.map.height);
+  this.x = x || Math.floor(Math.random() * game.map.width);
+  this.y = y || game.map.height;
   this.name = null;
   this.role = role || 'prisoner'; // prisoner or gard
   this.score = 0;
@@ -119,8 +120,8 @@ Player = function(x, y, role) {
 // Bot
 Bot = function(x, y) {
   this.id = shortid.generate();
-  this.x = x || 0;
-  this.y = y || Math.floor(Math.random() * game.map.height);
+  this.x = x || Math.floor(Math.random() * game.map.height);
+  this.y = y || game.map.height;
   this.role = 'prisoner'; // bots are always prisoners
   this.name = 'Bot';
 };
@@ -129,17 +130,16 @@ Bot.prototype.move = function(io) {
   var context = this,
     delay = rand(0, 1000);
 
-  this.x += rand(0, 1) * 5;
-  this.y += rand(-1, 1) * 5;
+  this.x += rand(-1, 2) * game.botSpeed;
+  this.y -= rand(0, 1) * game.botSpeed;
   
-  if (this.y < 0) {
-    this.y = 0;
-  } else if (this.y > game.map.height) {
+  if (this.y < 0 || this.y > game.map.height) {
     this.y = game.map.height;
   } else if (this.x > game.map.width) {
     this.x = game.map.width;
   }
   
+  // Push movement to players after a random delay
   setTimeout( function() { io.sockets.emit('player', context); }, delay);
 };
 
