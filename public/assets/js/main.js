@@ -234,7 +234,7 @@ function update() {
     if(cursors.down.isDown){
         lesjoueurs.monjoueur().moveoffset(0,5);
     }
-
+	backgroundGroup.sort('y', Phaser.Group.SORT_ASCENDING);
 }
 
 function updateplayer(player){
