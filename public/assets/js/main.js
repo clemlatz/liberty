@@ -221,7 +221,6 @@ function update() {
         lesjoueurs.monjoueur().moveoffset(0,5);
     }
 
-
 }
 
 function updateplayer(player){
