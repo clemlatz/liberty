@@ -19,9 +19,9 @@ Joueurs = function(){
         for (index = 0; index < nbjoueur; index++) {
 
 
-            if (joueur.id==tabjoueurs[index].id){
+            if (id==tabjoueurs[index].id){
 
-                //  tabjoueurs[index]=
+                tabjoueurs.splice(index,1);
             }
         }
     }
