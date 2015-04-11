@@ -4,13 +4,18 @@
   <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io();
+    var socket = io.connect('http://libertyy.herokuapp.com');
     
     function log(msg) {
       console.log(msg);
     }
     
     /* SERVER SIDE EVENTS */
+    
+    // On game start
+    socket.on('start', function() {
+      log('Game starting!');
+    });
     
     // Receive player list (on connection)
     socket.on('players', function(players){

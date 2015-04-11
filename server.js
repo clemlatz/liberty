@@ -25,12 +25,13 @@ var game = {
   timer: null,
   botNum: 0,
   map: {
-    height: 2688,
-    width: 4096
+    height: 400,
+    width: 400
   },
   start: function() {
     var context = this;
     
+    io.sockets.emit('start', true);
     log('New game starting...');
     
     // Reset time left to game duration
@@ -41,7 +42,7 @@ var game = {
     for (i = 0, c = this.players.length; i < c; i++) {
       this.players[i].role = 'prisoner';
       this.players[i].x = 0;
-      this.players[i].y = 0;
+      this.players[i].y = Math.floor(Math.random() * this.map.height);
     }
     
     // Set a random player to be the in watch tower
@@ -52,7 +53,7 @@ var game = {
       log('Player '+this.guard.id+' is the guard');
     }
     
-    // Add 10 random bots
+    // Add random bots
     var bot;
     game.bots = [];
     for(i = 0; i < this.botNum; i++) {
@@ -60,6 +61,7 @@ var game = {
       game.bots.push(bot);
     }
     
+    console.log(this.players.concat(this.bots));
     io.sockets.emit('players', this.players.concat(this.bots)); // Push bots & players
     
     log('New game started!');
@@ -124,6 +126,22 @@ io.on('connection', function(socket) {
   
   // Broadcast new player to all players
   socket.broadcast.emit('player', socket.player);
+  
+  // Prisonner updated position
+  socket.on('player', function(pos) {
+    
+    // Prevent player from exiting map
+    if (pos.x >= 0 && pos.x <= game.map.width && pos.y >= 0 && pos.y <= game.map.height) {
+      socket.player.x = pos.x;
+      socket.player.y = pos.y;
+      socket.broadcast.emit('player', socket.player);
+      log('Player '+socket.player.id+' moved to '+socket.player.x+','+socket.player.y);
+      return;
+    }
+    
+    log('Player '+socket.player.id+' tried to exit map: '+socket.player.x+','+socket.player.y);
+    
+  });
   
   // Prisonner moving
   socket.on('move', function(dir) {
