@@ -14,6 +14,17 @@ Joueurs = function(){
 
     }
 
+    this.delete = function (id)
+    {
+        for (index = 0; index < nbjoueur; index++) {
+
+
+            if (joueur.id==tabjoueurs[index].id){
+
+                //  tabjoueurs[index]=
+            }
+        }
+    }
 
     /**
      * Met à jour la position d'un joueur

@@ -42,7 +42,7 @@ io.on('join', function(player){
 io.on('leave', function(player){
 
 
-    lesjoueurs.add(j);
+    lesjoueurs.delete();
 });
 
 /**
