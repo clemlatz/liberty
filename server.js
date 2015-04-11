@@ -128,8 +128,16 @@ Bot.prototype.move = function(io) {
   var context = this,
     delay = rand(0, 1000);
 
-  this.x += rand(0, 10);
-  this.y += rand(-10, 10);
+  this.x += rand(0, 1) * 5;
+  this.y += rand(-1, 1) * 5;
+  
+  if (this.y < 0) {
+    this.y = 0;
+  } else if (this.y > game.map.height) {
+    this.y = game.map.height;
+  } else if (this.x > game.map.width) {
+    this.x = game.map.width;
+  }
   
   setTimeout( function() { io.sockets.emit('player', context); }, delay);
 };
