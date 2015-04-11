@@ -21,6 +21,7 @@ Joueurs = function(){
 
             if (id==this.tabjoueurs[index].id){
 
+                tabjoueurs[index].sprite.destroy();
                 tabjoueurs.splice(index,1);
             }
         }
