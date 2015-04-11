@@ -19,10 +19,11 @@ Joueurs = function(){
         for (index = 0; index < nbjoueur; index++) {
 
 
-            if (id==this.tabjoueurs[index].id){
+            if (id==tabjoueurs[index].id){
 
                 tabjoueurs[index].sprite.destroy();
                 tabjoueurs.splice(index,1);
+                nbjoueur--;
             }
         }
     }
