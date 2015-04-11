@@ -123,7 +123,7 @@ io.on('connection', function(socket) {
   socket.emit('players', game.players.concat(game.bots));
   
   // Broadcast new player to all players
-  socket.broadcast.emit('player', socket.player);
+  socket.broadcast.emit('players', game.players.concat(game.bots));
   
   // Prisonner updated position
   socket.on('player', function(pos) {
@@ -181,6 +181,9 @@ io.on('connection', function(socket) {
     if (index > -1) {
       game.players.splice(index, 1);
     }
+    
+    // Broadcast updated list
+    socket.broadcast.emit('players', game.players.concat(game.bots));
     
     log('Player '+socket.player.id+' disconnected');
   });
