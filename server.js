@@ -224,7 +224,7 @@ io.on('connection', function(socket) {
       game.players.splice(index, 1);
       
       // Broadcast updated list
-      socket.broadcast.emit('leave', game.players.concat(socket.player));
+      socket.broadcast.emit('leave', stock.player);
       
       log('Player '+socket.player.name+' disconnected');
     }
