@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
@@ -36,11 +37,34 @@
     
     /* CLIENT SIDE EVENTS */
     
+    $(document).ready( function() {
+    
+      // Client moving up
+      $('.move-up').on('click', function() {
+        socket.emit('move', 'up');
+      });
+      $('.move-right').on('click', function() {
+        socket.emit('move', 'right');
+      });
+      $('.move-left').on('click', function() {
+        socket.emit('move', 'left');
+      });
+      $('.move-down').on('click', function() {
+        socket.emit('move', 'down');
+      });
+    
+    });
+    
   </script>
 </head>
 
 <body>
   Hello liberty
+  
+  <button class="move-up">Up</button>
+  <button class="move-down">Down</button>
+  <button class="move-right">Right</button>
+  <button class="move-left">Left</button>
 </body>
 
 </html>

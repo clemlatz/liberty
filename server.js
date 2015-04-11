@@ -18,6 +18,10 @@ var game = {
   sockets: [],
   players: [],
   timer: null,
+  map: {
+    height: 2688,
+    width: 4096
+  },
   start: function() {
     var context = this;
     
@@ -32,6 +36,7 @@ var game = {
       bot = new Bot();
       game.bots.push(bot);
     }
+    io.sockets.emit('bots', game.bots); // Push bots to players
     
     log('New game starting');
   },
@@ -40,7 +45,7 @@ var game = {
     // Remove 1 second from time left
     this.time -= 1;
     
-    io.sockets.emit('time', this.time)
+    io.sockets.emit('time', this.time);
     
     // If time is up, start a new game
     if (this.time <= 0) {
@@ -87,6 +92,25 @@ io.on('connection', function(socket) {
   
   // Broadcast new player to all players
   socket.broadcast.emit('player', socket.player);
+  
+  // Player moving
+  socket.on('move', function(dir) {
+    
+    if (dir == "up" && socket.player.y > 0) {
+      socket.player.y -= 1;
+    } else if (dir == "down" && socket.player.y < game.map.height) {
+      socket.player.y += 1;
+    } else if (dir == "left" && socket.player.x > 0) {
+      socket.player.x -= 1;
+    } else if (dir == "right" && socket.player.x < game.map.width) {
+      socket.player.x += 1;
+    }
+    
+    socket.broadcast.emit('player', socket.player);
+    
+    log('Player '+socket.player.id+' moved '+dir);
+    
+  });
   
   // When player disconnect
   socket.on('disconnect', function() {
