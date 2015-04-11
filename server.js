@@ -4,6 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var shortid = require('shortid');
 
+// Set port
+app.set('port', (process.env.PORT || 3000));
+
 // Serve static files
 app.use(express.static('public'));
 
@@ -168,6 +171,6 @@ io.on('connection', function(socket) {
   
 });
 
-http.listen(3000, function(){
-  log('Server listening on *:3000');
+http.listen(app.get('port'), function(){
+  log('Server listening on *:'+app.get('port'));
 });
