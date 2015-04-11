@@ -14,21 +14,40 @@ function log(msg) {
 
 // Game
 var game = {
-  time: 120, // Time left
+  time: 120,
+  sockets: [],
   players: [],
   timer: null,
   start: function() {
     var context = this;
+    
+    // Reset time left to 120 seconds
     this.time = 120;
-    this.timer = setInterval( function() { context.onesec(); }, 1000);
+    this.timer = setInterval( function() { context.tick(); }, 1000);
+    
+    // Add 10 random bots
+    var bot;
+    game.bots = [];
+    for(i = 0; i < 10; i++) {
+      bot = new Bot();
+      game.bots.push(bot);
+    }
+    
     log('New game starting');
   },
-  onesec: function() {
+  tick: function() {
+    
+    // Remove 1 second from time left
     this.time -= 1;
+    
+    io.sockets.emit('time', this.time)
+    
+    // If time is up, start a new game
     if (this.time <= 0) {
       clearInterval(this.timer);
       this.start();
     }
+    
     log('Time left: '+this.time+' sec.');
   }
 };
@@ -51,17 +70,20 @@ Bot = function(x, y) {
 // Start game
 game.start();
 
-// Socket IO
+// On player connection
 io.on('connection', function(socket) {
+  
+  // Add new user to socket list
+  game.sockets.push(socket);
   
   // Create a new Player
   socket.player = new Player();
   game.players.push(socket.player);
-  
   log('Player '+socket.player.id+' created');
   
-  // Send players list to new player
+  // Send players & bots to new player
   socket.emit('players', game.players);
+  socket.emit('bots', game.bots);
   
   // Broadcast new player to all players
   socket.broadcast.emit('player', socket.player);

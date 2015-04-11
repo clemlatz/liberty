@@ -9,17 +9,32 @@
       console.log(msg);
     }
     
-    // Receive player list
+    /* SERVER SIDE EVENTS */
+    
+    // Receive player list (on connection)
     socket.on('players', function(players){
       log('Received players list');
       log(players);
     });
     
-    // Receive new player
+    // Receive player list (on connection)
+    socket.on('bots', function(bots){
+      log('Received bots list');
+      log(bots);
+    });
+    
+    // Receive new player (when new player enters game)
     socket.on('player', function(player){
       log('Receive new player');
       log(player);
     });
+    
+    // Receive time left (every second)
+    socket.on('time', function(time){
+      log('Time left: '+time+' sec.');
+    });
+    
+    /* CLIENT SIDE EVENTS */
     
   </script>
 </head>
