@@ -8,7 +8,7 @@ Joueur = function(id,type,isowner){
     this.id=id;
     this.type=type;
 
-    this.sprite=game.add.sprite(x,y,type);
+    this.sprite=game.add.sprite(x,y,type,1);
     this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5,6,7,8,9,10,11], 17, true, true);
 
 

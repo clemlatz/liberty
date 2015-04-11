@@ -1,13 +1,16 @@
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create ,update:update, render: render});
+var game = new Phaser.Game(1024, 768, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create ,update:update, render: render});
 
 function preload() {
 
-    game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml');
 
-    game.load.spritesheet('prisoner', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
+
+    game.load.tilemap('level1', 'assets/tilemaps/proto_test.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
+
+    game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
-    game.load.image("floor","assets/images/floor.png");
+  //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
 //    game.load.audio('Music', 'assets/sounds/Music_Gameplay.wav');
 
@@ -28,6 +31,7 @@ var gamestart = false;
 var OSD = new Array(10);
 
 var gamestatut = 0;
+var map;
 
 io.on('join', function(player){
     var isowner=false;
@@ -49,6 +53,7 @@ lesjoueurs.delete(player.id);
  * Debut de la partie
  */
 io.on('start', function(config){
+
     console.log('START');
     lesjoueurs.clear();
     gamestart=true;
@@ -56,15 +61,11 @@ io.on('start', function(config){
 // config{?,players}
 
     var players = config.players;
-    floor = game.add.sprite(0,0,"floor");
 
     lesjoueurs.import(players);
 
-    sprite = game.add.sprite(40, 100, 'prisoner');
+    launchworld();
 
-    sprite.animations.add('walk');
-
-    sprite.animations.play('walk', 50, true);
     /*
      if (self.role=='guard')
      game.add.text(window.innerWidth-300, 10,'Vous êtes un garde',{ font: "24px Arial",fill: '#FAAF00'});
@@ -78,6 +79,37 @@ io.on('start', function(config){
     //  floor.mask=maskGraphics;
 
 });
+
+launchworld = function(){
+    map = game.add.tilemap('level1',64,64);
+
+    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+    map.addTilesetImage('sprite_font', 'gameTiles');
+
+    //create layer
+    var backgroundlayer = map.createLayer('groundLayer');
+    var blockedLayer = map.createLayer('blockedLayer');
+
+    //collision on blockedLayer
+    map.setCollisionBetween(1, 2000, true, 'blockedLayer');
+
+    //resizes the game world to match the layer dimensions
+    backgroundlayer.resizeWorld();
+
+
+    var splayer = lesjoueurs.monjoueur().sprite;
+
+    game.world.bringToTop(splayer);
+    game.world.addAt(splayer, 3);
+
+    game.physics.enable(splayer, Phaser.Physics.ARCADE);
+
+
+
+//    splayer.body.setSize(10, 14, 2, 1);
+
+    game.camera.follow(splayer);
+}
 
 io.on('stop', function(self){
     console.log('STOP');
@@ -134,6 +166,7 @@ io.on('initia', function(obj){
     lesjoueurs.import(players);
     gamestart=true;
 
+    launchworld();
 });
 
 
