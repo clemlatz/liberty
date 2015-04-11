@@ -113,6 +113,7 @@ Player = function(x, y, role) {
   this.y = y || Math.floor(Math.random() * game.map.height);
   this.username = null;
   this.role = role || 'prisoner'; // prisoner or gard
+  this.score = 0;
 };
 
 // Bot
@@ -150,11 +151,10 @@ io.on('connection', function(socket) {
     log('Player '+socket.player.name+' created');
     
     // Send players & bots to new player
-    socket.emit('initia', socket.player);
-    socket.emit('players', game.players.concat(game.bots));
+    socket.emit('initia', { 'self': socket.player, 'players': game.players.concat(game.bots) });
     
     // Broadcast new player to all players
-    socket.broadcast.emit('players', game.players.concat(game.bots));
+    socket.broadcast.emit('join', socket.player);
     
   });
   
@@ -215,7 +215,7 @@ io.on('connection', function(socket) {
       game.players.splice(index, 1);
       
       // Broadcast updated list
-      socket.broadcast.emit('players', game.players.concat(game.bots));
+      socket.broadcast.emit('leave', game.players.concat(socket.player));
       
       log('Player '+socket.player.name+' disconnected');
     }

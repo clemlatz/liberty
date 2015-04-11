@@ -14,17 +14,13 @@
     
     socket.on('connected', function(version) {
       console.log('Connected on Liberty server v'+version);
-      
-      var name = prompt("What's your name?");
-      if (name) {
-        socket.emit('name', name);
-      }
+      $('.start').show();
     });
     
     /* SERVER SIDE EVENTS */
     
-    socket.on('start', function() {
-      console.log('Game started!')
+    socket.on('start', function(config) {
+      console.log('Game started!');
     });
     
     // Receive player list (on connection)
@@ -60,6 +56,14 @@
     
     $(document).ready( function() {
     
+      // Start
+      $('.start').on('click', function() {
+        var name = prompt("What's your name?");
+        if (name) {
+          socket.emit('name', name);
+        }
+      });
+    
       // Client moving up
       $('.move-up').on('click', function() {
         socket.emit('move', 'up');
@@ -91,6 +95,10 @@
     #log {
       padding-top: 25px;
     }
+    
+    .start {
+      display: none;
+    }
   </style>
   
 </head>
@@ -99,6 +107,7 @@
   <div id="server">
     <span class="players">0</span> players | 
     <span class="time">0</span> seconds left
+    <button class="start">start</button>
   </div>
   
   <div id="log">
