@@ -101,19 +101,9 @@ launchworld = function(){
     //resizes the game world to match the layer dimensions
     backgroundlayer.resizeWorld();
 
-	// Création des groupes
-	var backgroundGroup = game.add.group();
-	//var prisonersGroup = game.add.group();
-	//var guardianGroup = game.add.group();
-
-	
-
     var splayer = lesjoueurs.monjoueur().sprite;
-    
-	backgroundGroup.add(backgroundlayer);
-	backgroundGroup.add(splayer);
-	
-    //game.world.bringToTop(splayer);
+    	
+    game.world.bringToTop(splayer);
     game.world.addAt(splayer, 3);
 
     game.physics.enable(splayer, Phaser.Physics.ARCADE);
@@ -234,7 +224,6 @@ function update() {
     if(cursors.down.isDown){
         lesjoueurs.monjoueur().moveoffset(0,5);
     }
-	backgroundGroup.sort('y', Phaser.Group.SORT_ASCENDING);
 }
 
 function updateplayer(player){
