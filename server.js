@@ -1,5 +1,5 @@
 
-var app_version = '2';
+var app_version = '3';
 
 var express = require('express');
 var app = express();
@@ -58,7 +58,7 @@ var game = {
     if (new_guard) {
       this.guard = new_guard;
       this.guard.role = 'guard';
-      log('Player '+this.guard.id+' is the guard');
+      log('Player '+this.guard.name+' is the guard');
     }
     
     // Add random bots
@@ -69,7 +69,7 @@ var game = {
       game.bots.push(bot);
     }
     
-    io.sockets.emit('start', this.players.concat(this.bots)); // Push bots & players
+    io.sockets.emit('start', {'players': this.players.concat(this.bots) }); // Push bots & players
     
     log('New game started!');
   },
@@ -166,11 +166,11 @@ io.on('connection', function(socket) {
       socket.player.x = pos.x;
       socket.player.y = pos.y;
       socket.broadcast.emit('player', socket.player);
-      log('Player '+socket.player.id+' moved to '+socket.player.x+','+socket.player.y);
+      log('Player '+socket.player.name+' moved to '+socket.player.x+','+socket.player.y);
       return;
     }
     
-    log('Player '+socket.player.id+' tried to exit map: '+socket.player.x+','+socket.player.y);
+    log('Player '+socket.player.name+' tried to exit map: '+socket.player.x+','+socket.player.y);
     
   });
   
@@ -189,7 +189,7 @@ io.on('connection', function(socket) {
     
     socket.broadcast.emit('player', socket.player);
     
-    log('Player '+socket.player.id+' moved '+dir+' ('+socket.player.x+','+socket.player.y+')');
+    log('Player '+socket.player.name+' moved '+dir+' ('+socket.player.x+','+socket.player.y+')');
   });
   
   // Watchtower moving
@@ -202,7 +202,7 @@ io.on('connection', function(socket) {
     
     socket.broadcast.emit('player', socket.player);
     
-    log('Player '+socket.player.id+' moved to '+pos.x+','+pos.y);
+    log('Player '+socket.player.name+' moved to '+pos.x+','+pos.y);
     
   });
   
@@ -217,7 +217,7 @@ io.on('connection', function(socket) {
       // Broadcast updated list
       socket.broadcast.emit('players', game.players.concat(game.bots));
       
-      log('Player '+socket.player.id+' disconnected');
+      log('Player '+socket.player.name+' disconnected');
     }
   });
   
