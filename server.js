@@ -25,8 +25,8 @@ function rand(min, max) {
 
 // Game
 var game = {
-  duration: 10, // duration of a game
-  waitDuration: 10, // duration between game
+  duration: process.env.GAME_DURATION || 120, // duration of a game
+  waitDuration: process.env.WAIT_DURATION || 10, // duration between game
   time: this.duration, // time left on current game
   sockets: [],
   players: [],
