@@ -106,11 +106,14 @@ launchworld = function(){
 	var prisonersGroup = game.add.group();
 	var guardianGroup = game.add.group();
 
-	backgroundGroup.addChild(prisonersGroup);
-
     var splayer = lesjoueurs.monjoueur().sprite;
 
-    game.world.bringToTop(splayer);
+	prisonersGroup.addChild(splayer);
+	prisonersGroup.addChild(guardianGroup);
+	backgroundGroup.addChild(prisonersGroup);
+
+
+    //game.world.bringToTop(splayer);
     game.world.addAt(splayer, 3);
 
     game.physics.enable(splayer, Phaser.Physics.ARCADE);
