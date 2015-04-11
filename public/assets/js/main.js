@@ -96,6 +96,7 @@ launchworld = function(){
     //resizes the game world to match the layer dimensions
     backgroundlayer.resizeWorld();
 
+	// test
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
