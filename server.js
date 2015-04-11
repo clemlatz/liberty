@@ -14,11 +14,13 @@ function log(msg) {
 
 // Game
 var game = {
-  time: 10,
+  duration: 10, // duration of a game
+  time: this.duration, // time left on current game
   sockets: [],
   players: [],
-  tower: null,
+  guard: null,
   timer: null,
+  botNum: 0,
   map: {
     height: 2688,
     width: 4096
@@ -26,34 +28,36 @@ var game = {
   start: function() {
     var context = this;
     
-    
     log('New game starting...');
     
-    // Reset time left to 120 seconds
-    this.time = 30;
+    // Reset time left to game duration
+    this.time = this.duration;
     this.timer = setInterval( function() { context.tick(); }, 1000);
     
-    // Reset roles for all players
+    // Reset roles & positions of all players
     for (i = 0, c = this.players.length; i < c; i++) {
       this.players[i].role = 'prisoner';
+      this.players[i].x = 0;
+      this.players[i].y = 0;
     }
     
     // Set a random player to be the in watch tower
-    var new_tower = this.players[Math.floor(Math.random() * this.players.length)];
-    if (new_tower) {
-      this.tower = new_tower;
-      this.tower.role = 
-      log('Player '+this.tower.id+' is in the watchtower');
+    var new_guard = this.players[Math.floor(Math.random() * this.players.length)];
+    if (new_guard) {
+      this.guard = new_guard;
+      this.guard.role = 'guard';
+      log('Player '+this.guard.id+' is the guard');
     }
     
     // Add 10 random bots
     var bot;
     game.bots = [];
-    for(i = 0; i < 10; i++) {
+    for(i = 0; i < this.botNum; i++) {
       bot = new Bot();
       game.bots.push(bot);
     }
-    io.sockets.emit('bots', game.bots); // Push bots to players
+    
+    io.sockets.emit('players', this.players.concat(this.bots)); // Push bots & players
     
     log('New game started!');
   },
@@ -68,7 +72,14 @@ var game = {
     if (this.time <= 0) {
       clearInterval(this.timer);
       this.start();
+      return;
     }
+    
+    // Move bots
+    for (i = 0, c = game.bots.length; i < c; i++) {
+      game.bots[i].x += Math.floor(Math.random() * 10);
+    }
+    // io.sockets.emit('players', game.players.concat(game.bots));
     
     log('Time left: '+this.time+' sec.');
   }
@@ -78,15 +89,16 @@ var game = {
 Player = function(x, y, role) {
   this.id = shortid.generate();
   this.x = x || 0;
-  this.y = y || 0;
-  this.role = role || 'prisoner'; // prisoner or tower
+  this.y = y || Math.floor(Math.random() * 400);
+  this.role = role || 'prisoner'; // prisoner or gard
 };
 
 // Bot
 Bot = function(x, y) {
   this.id = shortid.generate();
   this.x = x || 0;
-  this.y = y || 0;
+  this.y = y || Math.floor(Math.random() * 400);
+  this.role = 'prisoner'; // bots are always prisoners
 };
 
 // Start game
@@ -104,29 +116,41 @@ io.on('connection', function(socket) {
   log('Player '+socket.player.id+' created');
   
   // Send players & bots to new player
-  socket.emit('role', socket.player.role)
-  socket.emit('players', game.players);
-  socket.emit('bots', game.bots);
+  socket.emit('initia', socket.player);
+  socket.emit('players', game.players.concat(game.bots));
   
   // Broadcast new player to all players
   socket.broadcast.emit('player', socket.player);
   
-  // Player moving
+  // Prisonner moving
   socket.on('move', function(dir) {
     
     if (dir == "up" && socket.player.y > 0) {
-      socket.player.y -= 1;
+      socket.player.y -= 10;
     } else if (dir == "down" && socket.player.y < game.map.height) {
-      socket.player.y += 1;
+      socket.player.y += 10;
     } else if (dir == "left" && socket.player.x > 0) {
-      socket.player.x -= 1;
+      socket.player.x -= 10;
     } else if (dir == "right" && socket.player.x < game.map.width) {
-      socket.player.x += 1;
+      socket.player.x += 10;
     }
     
     socket.broadcast.emit('player', socket.player);
     
-    log('Player '+socket.player.id+' moved '+dir);
+    log('Player '+socket.player.id+' moved '+dir+' ('+socket.player.x+','+socket.player.y+')');
+  });
+  
+  // Watchtower moving
+  socket.on('position', function(pos) {
+    
+    if (pos.x >= 0 && pos.x <= game.map.width && pos.y >= 0 && pos.y <= game.map.height) {
+      socket.player.x = pos.x;
+      socket.player.y = pos.y;
+    }
+    
+    socket.broadcast.emit('player', socket.player);
+    
+    log('Player '+socket.player.id+' moved to '+pos.x+','+pos.y);
     
   });
   

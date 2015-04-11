@@ -18,15 +18,10 @@
       log(players);
     });
     
-    // Receive player list (on connection)
-    socket.on('bots', function(bots){
-      log('Received bots list');
-      log(bots);
-    });
-    
-    // Receive current player role (on connection)
-    socket.on('role', function(role){
-      $('.role').text(role);
+    // Receive
+    socket.on('initia', function(self){
+      log('Self player object');
+      log(self);
     });
     
     // Receive new player (when new player enters game)
@@ -37,7 +32,7 @@
     
     // Receive time left (every second)
     socket.on('time', function(time){
-      log('Time left: '+time+' sec.');
+      $('.time').text(time);
     });
     
     /* CLIENT SIDE EVENTS */
@@ -70,6 +65,9 @@
   <button class="move-down">Down</button>
   <button class="move-right">Right</button>
   <button class="move-left">Left</button>
+  
+  Time left: <span class="time"></span> sec.
+  
 </body>
 
 </html>
