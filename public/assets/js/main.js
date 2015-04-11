@@ -19,7 +19,7 @@ var myid;
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect();
+var io = io.connect('http://libertyjam.azurewebsites.net/');
 
 
 var gamestart = false;
@@ -41,8 +41,8 @@ io.on('join', function(player){
 
 io.on('leave', function(player){
 
-  //  lesjoueurs.delete();
 
+//    lesjoueurs.add(j);
 });
 
 /**
@@ -150,9 +150,9 @@ function create() {
 
     io.emit('name',resp);
 
-    var music = game.add.audio('Music');
+  /*  var music = game.add.audio('Music');
     music.volume = 1;
-    music.play();
+    music.play();*/
     /*
      game.scale.pageAlignHorizontally = true;
      game.scale.pageAlignVertically = true;
