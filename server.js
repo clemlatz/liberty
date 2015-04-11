@@ -160,7 +160,7 @@ io.on('connection', function(socket) {
     log('Player '+socket.player.name+' created');
     
     // Send players & bots to new player
-    socket.emit('initia', { 'self': socket.player, 'players': game.players.concat(game.bots) });
+    socket.emit('initia', { 'player': socket.player, 'players': game.players.concat(game.bots) });
     
     // Broadcast new player to all players
     socket.broadcast.emit('join', socket.player);
