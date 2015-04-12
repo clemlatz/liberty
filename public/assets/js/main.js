@@ -39,7 +39,7 @@ var map;
 
 
 var blockedLayer;
-var startScreen = this.add.sprite(200, 40, 'startScreen');
+var startScreen;
 launchworld = function(){
 
 
@@ -57,7 +57,7 @@ launchworld = function(){
 //    splayer.body.setSize(10, 14, 2, 1);
 
     game.camera.follow(splayer);
-
+startScreen = game.add.sprite(200, 40, 'startScreen');
 }
 
 io.on('stop', function(self){
