@@ -16,7 +16,9 @@ function preload() {
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
-    game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
+/** load audio **/
+	game.load.audio('gameplay', 'assets/sounds/Music_Gameplay_Final_.ogg');
+    //game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
 
 }
 
@@ -152,7 +154,9 @@ function create() {
 
     goFullScreen();
 
-
+	/** Audio **/
+	var sound = game.add.audio('gameplay',1, true);
+	sound.play();
     //var music = game.add.audio('Music');
     //music = game.sound.play('Music');
     /*
