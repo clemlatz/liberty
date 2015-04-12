@@ -150,7 +150,7 @@ function create() {
     maskGroup.add(maskGraphicsExt);*/
 
     mapgroup.mask = maskGraphics;
-
+startScreen.kill();
     goFullScreen();
 
 	/** Audio **/
