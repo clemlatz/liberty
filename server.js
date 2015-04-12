@@ -241,10 +241,16 @@ io.on('connection', function(socket) {
     
     // Prevent player from exiting map
     if (pos.x >= 0 && pos.x <= game.map.width && pos.y >= 0 && pos.y <= game.map.height) {
-      socket.player.x = pos.x;
-      socket.player.y = pos.y;
+      
+      index = getIndex(game.players, socket.player.id);
+      if (index > -1) {
+        game.players[index].x = pos.x;
+        game.players[index].y = pos.y;
+      }
+      
+      socket.player = game.players[index];
       socket.broadcast.emit('player', socket.player);
-      log('Player '+socket.player.name+' moved to '+socket.player.x+','+socket.player.y);
+      log('Player '+socket.player.name+' ('+socket.player.role+') moved to '+socket.player.x+','+socket.player.y);
       return;
     }
     

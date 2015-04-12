@@ -27,7 +27,7 @@ function preload() {
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect('http://libertyjam.azurewebsites.net/');
+var io = io.connect();
 
 
 var gamestart = false;
@@ -206,4 +206,3 @@ function render() {
       //  game.debug.bodyInfo(lesjoueurs.monjoueur().sprite, 32, 320);
     }
 }
-
