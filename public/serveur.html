@@ -29,6 +29,10 @@
     socket.on('start', function(config) {
       console.log('Game started!');
     });
+
+    socket.on('stop', function() {
+        socket.emit('stop', true);
+    });
     
     // Receive player list (on connection)
     socket.on('players', function(list){
