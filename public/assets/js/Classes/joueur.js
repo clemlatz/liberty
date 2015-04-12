@@ -9,8 +9,7 @@ Joueur = function(id,type,isowner){
     this.type=type;
 
     this.sprite=game.add.sprite(x,y,type,1);
-    this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5,6,7,8,9,10,11], 17, true, true);
-
+    this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5], 6, true, true);
 
 
 
@@ -46,7 +45,7 @@ Joueur = function(id,type,isowner){
     this.animstart = function(){
 
 
-        this.sprite.animations.play('walk',60,false);
+        this.sprite.animations.play('walk',10,false);
 
     }
 

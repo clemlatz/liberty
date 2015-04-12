@@ -10,7 +10,7 @@ function preload() {
     game.load.tilemap('level1', 'assets/tilemaps/final.txt', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('gameTiles', 'assets/tilemaps/sprite_fontFINAL.png');
 
-    game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
+    game.load.spritesheet('prisoner', 'assets/images/sprite_anime-run.png', 64, 64, 6);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
@@ -86,34 +86,19 @@ io.on('start', function(config){
 var blockedLayer;
 
 launchworld = function(){
-    map = game.add.tilemap('level1',64,64);
 
-    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-    map.addTilesetImage('sprite_fontFINAL', 'gameTiles');
-
-    //create layer
-    var backgroundlayer = map.createLayer('groundLayer');
-    blockedLayer = map.createLayer('blockedLayer');
-    var paralaxLayer = map.createLayer('paralaxLayer');
-
-    //collision on blockedLayer
-    map.setCollisionBetween(1, 2000, true, 'blockedLayer');
-
-    //resizes the game world to match the layer dimensions
-    backgroundlayer.resizeWorld();
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    game.physics.arcade.enable(splayer);
+   // game.physics.arcade.enable(splayer);
+    game.physics.enable(splayer, Phaser.Physics.ARCADE);
 
     game.world.bringToTop(splayer);
 //    game.world.addAt(backgroundlayer, 0);
 
-    game.physics.enable(splayer, Phaser.Physics.ARCADE);
 
 
+    splayer.body.collideWorldBounds = true;
 
 //    splayer.body.setSize(10, 14, 2, 1);
 
@@ -122,12 +107,6 @@ launchworld = function(){
 
 io.on('stop', function(self){
     console.log('STOP');
-
-
-});
-
-
-io.on('players', function(players){
 
 
 });
@@ -153,7 +132,7 @@ io.on('time', function(time){
 io.on('player', function(player){
 
     if (gamestart){
-        console.log('PLAYER');
+       // console.log('PLAYER');
         lesjoueurs.updatepos(player);
     }
 
@@ -181,16 +160,15 @@ io.on('initia', function(obj){
 function goFullScreen(){
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     game.scale.setScreenSize(true);
 }
 
 function create() {
 
-
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-
 
     var resp="";
 
@@ -199,6 +177,27 @@ function create() {
     }
 
     io.emit('name',resp);
+
+    map = game.add.tilemap('level1',64,64);
+
+    //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+    map.addTilesetImage('sprite_fontFINAL', 'gameTiles');
+
+    //create layer
+    var backgroundlayer = map.createLayer('groundLayer');
+    blockedLayer = map.createLayer('blockedLayer');
+    var paralaxLayer = map.createLayer('paralaxLayer');
+
+    console.log(blockedLayer);
+    backgroundlayer.resizeWorld();
+    // blockedLayer.debug=true;
+
+    //collision on blockedLayer
+   // map.setCollision(23,true,blockedLayer);
+    map.setCollisionBetween(1,25);
+
+    //resizes the game world to match the layer dimensions
+
 
     goFullScreen();
     /*  var music = game.add.audio('Music');
@@ -222,9 +221,18 @@ function create() {
 
 }
 
+function collideevt(var1,var2){
+console.log(var1);
+  //  console.log(var2);
+}
+
 function update() {
 
-    game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,null,null);
+    if (gamestart){
+//        console.log(blockedLayer);
+       // game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,function(a,b){console.log(a);},null,this);
+        game.physics.arcade.collide(lesjoueurs.monjoueur(),'blockedLayer');
+    }
 
     if(cursors.right.isDown){
         var j = lesjoueurs.monjoueur();
@@ -232,13 +240,19 @@ function update() {
         j.animstart();
     }
     if(cursors.left.isDown){
-        lesjoueurs.monjoueur().moveoffset(-5,0);
+        var j = lesjoueurs.monjoueur();
+        j.moveoffset(-5,0);
+        j.animstart();
     }
     if(cursors.up.isDown){
-        lesjoueurs.monjoueur().moveoffset(0,-5);
+        var j = lesjoueurs.monjoueur();
+        j.moveoffset(0,-5);
+        j.animstart();
     }
     if(cursors.down.isDown){
-        lesjoueurs.monjoueur().moveoffset(0,5);
+        var j = lesjoueurs.monjoueur();
+        j.moveoffset(0,5);
+        j.animstart();
     }
 
 }
