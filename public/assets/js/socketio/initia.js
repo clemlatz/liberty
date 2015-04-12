@@ -11,10 +11,6 @@ io.on('initia', function(obj){
     lesjoueurs.import(players);
 
     lesjoueurs.hider();
-    
-    //var startScreen = game.add.sprite(0, 0, 'startScreen');
-    //startScreen.inputEnabled = true;
-	//startScreen.events.onInputDown.add(function() { startScreen.kill(); gamestart = true; }, this);
 	
     gamestart=true;
 

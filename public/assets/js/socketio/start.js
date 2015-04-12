@@ -1,5 +1,7 @@
 io.on('start', function(config){
-
+	if(startScreen != null) {
+		startScreen.kill();
+	}
     console.log('START');
     lesjoueurs.clear();
     gamestart=true;

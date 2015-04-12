@@ -102,8 +102,9 @@ var backgroundlayer;
 var paralaxLayer;
 
 var mapgroup;
-
+var startScreen;
 function create() {
+	startScreen = game.add.sprite(0, 0, 'startScreen');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
