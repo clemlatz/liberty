@@ -33,11 +33,6 @@ var OSD = new Array(10);
 var gamestatut = 0;
 var map;
 
-// Groupes
-var backgroundGroup;
-var prisonersGroup;
-var guardianGroup;
-
 io.on('join', function(player){
     var isowner=false;
 
@@ -101,10 +96,12 @@ launchworld = function(){
     //resizes the game world to match the layer dimensions
     backgroundlayer.resizeWorld();
 
+
+
     var splayer = lesjoueurs.monjoueur().sprite;
-    	
+
     game.world.bringToTop(splayer);
-    game.world.addAt(splayer, 3);
+//    game.world.addAt(backgroundlayer, 0);
 
     game.physics.enable(splayer, Phaser.Physics.ARCADE);
 
@@ -173,7 +170,12 @@ io.on('initia', function(obj){
     launchworld();
 });
 
-
+function goFullScreen(){
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.setScreenSize(true);
+}
 
 function create() {
 
@@ -187,6 +189,7 @@ function create() {
 
     io.emit('name',resp);
 
+    goFullScreen();
   /*  var music = game.add.audio('Music');
     music.volume = 1;
     music.play();*/
@@ -224,6 +227,7 @@ function update() {
     if(cursors.down.isDown){
         lesjoueurs.monjoueur().moveoffset(0,5);
     }
+
 }
 
 function updateplayer(player){
