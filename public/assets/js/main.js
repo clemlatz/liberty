@@ -104,6 +104,8 @@ launchworld = function(){
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
+    game.physics.arcade.enable(splayer);
+
     game.world.bringToTop(splayer);
 //    game.world.addAt(backgroundlayer, 0);
 
@@ -216,6 +218,8 @@ function create() {
 }
 
 function update() {
+
+    game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,null,null);
 
     if(cursors.right.isDown){
         var j = lesjoueurs.monjoueur();
