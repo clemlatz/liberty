@@ -1,5 +1,5 @@
 
-var app_version = '3.1';
+var app_version = '4';
 
 var express = require('express');
 var app = express();
@@ -55,6 +55,7 @@ var game = {
       this.players[i].role = 'prisoner';
       this.players[i].x = Math.floor(Math.random() * (this.map.width - 100));
       this.players[i].y = this.map.height - 100;
+      this.players[i].dead = false;
     }
     
     // Set a random player to be the in watch tower
@@ -78,7 +79,6 @@ var game = {
     
     // If time is up, start a new game
     if (this.time <= 0) {
-      clearInterval(this.timer);
       this.stop();
       return;
     }
@@ -90,7 +90,6 @@ var game = {
       io.sockets.emit('join', bot);
       game.bots.push(bot);
     }
-    log(game.bots.length);
     
     // Random bots movement
     for (i = 0, c = game.bots.length; i < c; i++) {
@@ -99,6 +98,9 @@ var game = {
   },
   stop: function() {
     var context = this;
+    
+    // Stop countdown
+    clearInterval(this.timer);
           
     // Broadcast end of game
     io.sockets.emit('stop', this.time);
@@ -119,6 +121,7 @@ Player = function(x, y, role) {
   this.name = null;
   this.role = role || 'prisoner'; // prisoner or gard
   this.score = 0;
+  this.dead = false;
 };
 
 // Bot
@@ -128,6 +131,7 @@ Bot = function(x, y) {
   this.y = y || game.map.height - 100;
   this.role = 'prisoner'; // bots are always prisoners
   this.name = 'Bot';
+  this.dead = false;
 };
 
 function smoothMove(mob, iteration, direction) {
@@ -140,7 +144,7 @@ function smoothMove(mob, iteration, direction) {
     } else if (direction == 1) {
       mob.x -= 5;
       if (mob.x < 0) {
-        mob.x == 0;
+        mob.x = 0;
       }
     } else {
       mob.x += 5;
@@ -190,6 +194,48 @@ io.on('connection', function(socket) {
     
   });
   
+  // Restarting game
+  socket.on('restart', function() {
+    game.stop();
+    log('Game restarted by user');
+  });
+  
+  function getIndex(array, id) {
+    for (var i = 0, c = array.length; i < c; i++) {
+      if (array[i].id == id) return i;
+    }
+    return -1;
+  }
+  
+  // When a player (or bot) is killed
+  socket.on('kill', function(player_id) {
+    
+    // Player ?
+    var index = getIndex(game.players, player_id);
+    if (index != -1) {
+      game.players[index].dead = true;
+      socket.emit('killed', player_id);
+      socket.broadcast.emit('killed', player_id);
+      
+      log(game.players[index].name+' was killed.');
+    }
+    
+    // Or bot ?
+    index = getIndex(game.bots, player_id);
+    if (index != -1) {
+      game.bots[index].dead = true;
+      socket.emit('killed', player_id);
+      socket.broadcast.emit('killed', player_id);
+      
+      log(game.bots[index].name+' was killed.');
+    }
+    
+    
+    // game.players[i].dead = true;
+    // log(game.players[i].name+" was killed");
+    // socket.broadcast.emit('killed', player_id);
+  });
+  
   // Prisonner updated position
   socket.on('player', function(pos) {
     
@@ -203,38 +249,6 @@ io.on('connection', function(socket) {
     }
     
     log('Player '+socket.player.name+' tried to exit map: '+socket.player.x+','+socket.player.y);
-    
-  });
-  
-  // Prisonner moving
-  socket.on('move', function(dir) {
-    
-    if (dir == "up" && socket.player.y > 0) {
-      socket.player.y -= 10;
-    } else if (dir == "down" && socket.player.y < game.map.height) {
-      socket.player.y += 10;
-    } else if (dir == "left" && socket.player.x > 0) {
-      socket.player.x -= 10;
-    } else if (dir == "right" && socket.player.x < game.map.width) {
-      socket.player.x += 10;
-    }
-    
-    socket.broadcast.emit('player', socket.player);
-    
-    log('Player '+socket.player.name+' moved '+dir+' ('+socket.player.x+','+socket.player.y+')');
-  });
-  
-  // Watchtower moving
-  socket.on('position', function(pos) {
-    
-    if (pos.x >= 0 && pos.x <= game.map.width && pos.y >= 0 && pos.y <= game.map.height) {
-      socket.player.x = pos.x;
-      socket.player.y = pos.y;
-    }
-    
-    socket.broadcast.emit('player', socket.player);
-    
-    log('Player '+socket.player.name+' moved to '+pos.x+','+pos.y);
     
   });
   
