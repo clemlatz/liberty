@@ -8,9 +8,10 @@ Joueur = function(id,type,isowner){
     this.id=id;
     this.type=type;
 
+
     this.sprite=game.add.sprite(x,y,type,1);
     this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5], 6, true, true);
-
+    this.dieanimate=this.sprite.animations.add('prisonerdie',[0,1,2,3,4,5,6], 7, false, true);
 
     this.updatepos= function(x,y){
         this.x=x;
@@ -66,6 +67,11 @@ Joueur = function(id,type,isowner){
 
         this.sprite.animations.stop();
 
+    }
+
+    this.die = function(){
+        this.sprite=game.add.sprite(x,y,'prisonerdie',1);
+        this.dieanimate.play();
     }
 
 }

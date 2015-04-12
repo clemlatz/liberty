@@ -9,9 +9,24 @@ Joueurs = function(){
 
     this.add = function (joueur)
     {
+
         tabjoueurs[nbjoueur]=joueur;
         nbjoueur++;
 
+    }
+
+    this.getnb = function (){
+
+        return this.nbjoueur;
+
+    }
+
+    this.hider = function(){
+
+        for (index = 0; index < nbjoueur; index++) {
+            if (tabjoueurs[index].isowner!=true)
+            mapgroup.add(tabjoueurs[index].sprite);
+        }
     }
 
     this.delete = function (id)
@@ -35,10 +50,19 @@ Joueurs = function(){
 
         for (index = 0; index < nbjoueur; index++) {
 
+            //pour chaques joueurs on met à jours la position
             if (joueur.id==tabjoueurs[index].id){
 
                 tabjoueurs[index].sprite.x=joueur.x;
                 tabjoueurs[index].sprite.y=joueur.y;
+
+                if(joueur.type=='guard'){
+                //    tabjoueurs[index].sprite=
+                    maskGraphics.clear();
+                    maskGraphics.drawEllipse(joueur.x, joueur.y,200,130);
+                    maskGraphics.beginFill(0xffffff);
+                    maskGraphics.endFill();
+                }
             }
 
 
@@ -90,9 +114,8 @@ Joueurs = function(){
             var j  = new Joueur(players[index].id,players[index].role,isowner);
             j.x=players[index].x;
             j.y=players[index].y;
-            
-            j.sprite.x = players[index].x;
-            j.sprite.y = players[index].y;
+            j.sprite.x=players[index].x;
+            j.sprite.y=players[index].y;
 
             this.add(j);
 
