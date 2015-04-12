@@ -8,14 +8,15 @@ Joueur = function(id,type,isowner){
     this.id=id;
     this.type=type;
 
-
+    this.name='test';
     this.sprite=game.add.sprite(x,y,type,1);
-    this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5], 6, true, true);
-    this.dieanimate=this.sprite.animations.add('prisonerdie',[0,1,2,3,4,5,6], 7, false, true);
+    this.animation=this.sprite.animations.add('walk',[15,16,17,18,19,20], 6, true, true);
+    this.dieanimate=this.sprite.animations.add('die',[0,1,2,3,4,5,6], 7, false, true);
 
     this.updatepos= function(x,y){
         this.x=x;
         this.y=y;
+
 
         this.sprite.x=this.x;
         this.sprite.y=this.y;
@@ -25,6 +26,7 @@ Joueur = function(id,type,isowner){
 
         this.x=x;
         this.y=y;
+
 
         this.sprite.x=this.x;
         this.sprite.y=this.y;
@@ -61,7 +63,7 @@ Joueur = function(id,type,isowner){
 
     this.animstart = function(){
 
-
+//        this.sprite.animations.play('die',4,false);
         this.sprite.animations.play('walk',10,false);
 
     }
@@ -73,8 +75,7 @@ Joueur = function(id,type,isowner){
     }
 
     this.die = function(){
-        this.sprite=game.add.sprite(x,y,'prisonerdie',1);
-        this.dieanimate.play();
+        this.sprite.animations.play('die',4,false);
     }
 
 }
