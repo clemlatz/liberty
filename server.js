@@ -27,7 +27,7 @@ function rand(min, max) {
 var game = {
   duration: process.env.GAME_DURATION || 120, // duration of a game
   waitDuration: process.env.WAIT_DURATION || 10, // duration between game
-  botNum: 3,
+  botNum: 12,
   map: {
     height: 2304,
     width: 2304
@@ -35,6 +35,7 @@ var game = {
   time: this.duration, // time left on current game
   sockets: [],
   players: [],
+  bots: [],
   guard: null,
   timer: null,
   start: function() {
@@ -45,6 +46,9 @@ var game = {
     // Reset time left to game duration
     this.time = this.duration;
     this.timer = setInterval( function() { context.tick(); }, 1000);
+    
+    // Reset bots
+    this.bots = [];
     
     // Reset roles & positions of all players
     for (i = 0, c = this.players.length; i < c; i++) {
@@ -59,14 +63,6 @@ var game = {
       this.guard = new_guard;
       this.guard.role = 'guard';
       log('Player '+this.guard.name+' is the guard');
-    }
-    
-    // Add random bots
-    var bot;
-    game.bots = [];
-    for(i = 0; i < this.botNum; i++) {
-      bot = new Bot();
-      game.bots.push(bot);
     }
     
     io.sockets.emit('start', {'players': this.players.concat(this.bots) }); // Push bots & players
@@ -86,6 +82,15 @@ var game = {
       this.stop();
       return;
     }
+    
+    // Add every two seconds a bot if not all are there
+    var bot;
+    if (game.bots.length < game.botNum && this.time % 2 === 0) {
+      bot = new Bot();
+      io.sockets.emit('join', bot);
+      game.bots.push(bot);
+    }
+    log(game.bots.length);
     
     // Random bots movement
     for (i = 0, c = game.bots.length; i < c; i++) {
