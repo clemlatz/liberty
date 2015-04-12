@@ -25,7 +25,7 @@ function rand(min, max) {
 
 // Game
 var game = {
-  duration: process.env.GAME_DURATION || 20, // duration of a game
+  duration: process.env.GAME_DURATION || 120, // duration of a game
   waitDuration: process.env.WAIT_DURATION || 10, // duration between game
   botNum: 3,
   map: {
