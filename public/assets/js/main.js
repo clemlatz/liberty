@@ -40,9 +40,9 @@ var map;
 
 
 var blockedLayer;
-
+var startScreen;
 launchworld = function(){
-
+	startScreen = game.add.sprite(0, 0, 'startScreen');
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
@@ -64,6 +64,7 @@ io.on('stop', function(self){
 
     lesjoueurs.monjoueur().die();
     console.log('STOP');
+    startScreen = game.add.sprite(0, 0, 'startScreen');
 
 
 });
@@ -102,9 +103,8 @@ var backgroundlayer;
 var paralaxLayer;
 
 var mapgroup;
-var startScreen;
+
 function create() {
-	startScreen = game.add.sprite(0, 0, 'startScreen');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
