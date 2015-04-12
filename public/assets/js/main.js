@@ -150,7 +150,6 @@ function create() {
 
     mapgroup.mask = maskGraphics;
 
-
     goFullScreen();
 
 
