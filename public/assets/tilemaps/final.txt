@@ -45,7 +45,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -61,7 +62,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -77,7 +79,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -93,7 +96,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -109,7 +113,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -125,7 +130,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -141,7 +147,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -157,7 +164,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -173,7 +181,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -189,7 +198,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -205,7 +215,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -221,7 +232,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -237,7 +249,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"piege",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -253,7 +266,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -269,7 +283,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -285,7 +300,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -301,7 +317,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -317,7 +334,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -333,7 +351,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -349,7 +368,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -365,7 +385,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -381,7 +402,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -397,7 +419,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -413,7 +436,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -429,7 +453,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -445,7 +470,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -461,7 +487,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -477,7 +504,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -493,7 +521,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -509,7 +538,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -525,7 +555,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -541,7 +572,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -557,7 +589,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -573,7 +606,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -589,7 +623,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -605,7 +640,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -621,7 +657,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -637,7 +674,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -653,7 +691,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -669,7 +708,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -685,7 +725,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",
@@ -701,7 +742,8 @@
                  "name":"",
                  "properties":
                     {
-
+					 "sprite":"barbele",
+                     "type":"trap"
                     },
                  "rotation":0,
                  "type":"",

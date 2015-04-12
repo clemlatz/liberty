@@ -13,6 +13,9 @@ function preload() {
     game.load.spritesheet('prisoner', 'assets/images/sprite_anime-run.png', 64, 64, 6);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
+	game.load.image('piege', 'assets/images/piege.png');
+	game.load.image('barbele', 'assets/images/barbele.png');
+
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
     game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
@@ -81,6 +84,7 @@ io.on('start', function(config){
 });
 
 var blockedLayer;
+var trapsLayer;
 
 launchworld = function(){
 
@@ -181,17 +185,18 @@ function create() {
 
     //create layer
     var backgroundlayer = map.createLayer('groundLayer');
-    blockedLayer = map.createLayer('blockedLayer');
+    //blockedLayer = map.createLayer('blockedLayer');
     var paralaxLayer = map.createLayer('paralaxLayer');
+    trapsLayer = map.createLayer('trapsLayer');
 
-    console.log(blockedLayer);
+    //console.log(blockedLayer);
     backgroundlayer.resizeWorld();
     // blockedLayer.debug=true;
-
+	this.createTraps();
     //collision on blockedLayer
   //  map.setCollision(23);
    // map.setCollision(25);
-    map.setCollisionBetween(1,25,true,blockedLayer);
+    //map.setCollisionBetween(1,25,true,blockedLayer);
 
 
 
@@ -228,11 +233,52 @@ function collideevt(var1,var2){
 console.log('collide');
 }
 
+function createTraps() {
+    //create traps
+    game.traps = game.add.group();
+    game.traps.enableBody = true;
+    result = this.findObjectsByType('trap', game.map, 'trapsLayer');
+
+    result.forEach(function(element){
+      this.createFromTiledObject(element, game.traps);
+    }, this);
+  },
+
+ //find objects in a Tiled layer that containt a property called "type" equal to a certain value
+  function findObjectsByType(type, map, layer) {
+    var result = new Array();
+    map.objects[layer].forEach(function(element){
+      if(element.properties.type === type) {
+        //Phaser uses top left, Tiled bottom left so we have to adjust
+        //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
+        //so they might not be placed in the exact position as in Tiled
+        element.y -= map.tileHeight;
+        result.push(element);
+      }      
+    });
+    return result;
+  }
+  
+  //create a sprite from an object
+ function createFromTiledObject(element, group) {
+    var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+      //copy all properties to the sprite
+      Object.keys(element.properties).forEach(function(key){
+        sprite[key] = element.properties[key];
+      });
+ }
+ 
+function action() {
+	console.log("it's a trap dude !");
+}
 function update() {
+	
+	game.physics.arcade.overlap(lesjoueurs.monjoueur(), this.traps, this.action, null, this);
 
     var vx = 0;
     var vy = 0;
-
+	
     if(cursors.right.isDown){
         vx=150;
     }
