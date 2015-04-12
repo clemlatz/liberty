@@ -2,7 +2,8 @@ var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preloa
 
 function preload() {
 
-
+	/** load startScreen **/
+	game.load.image('startScreen', 'assets/images/startScreen.png');
 
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
  //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
@@ -107,7 +108,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-
+	var startScreen = game.add.sprite(0, 0, 'startScreen');;
     var resp="";
 
     while (resp=="" || resp==null){
@@ -115,7 +116,7 @@ function create() {
     }
 
     io.emit('name',resp);
-
+	startScreen.destroy();
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
