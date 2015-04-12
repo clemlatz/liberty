@@ -42,7 +42,6 @@ var map;
 var blockedLayer;
 var startScreen;
 launchworld = function(){
-	startScreen = game.add.sprite(0, 0, 'startScreen');
 
     var splayer = lesjoueurs.monjoueur().sprite;
 
@@ -64,9 +63,6 @@ io.on('stop', function(self){
 
     lesjoueurs.monjoueur().die();
     console.log('STOP');
-    startScreen = game.add.sprite(0, 0, 'startScreen');
-
-
 });
 
 var labeltime;
@@ -81,7 +77,9 @@ io.on('time', function(time){
     {
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
+		startScreen = game.add.sprite(0, 0, 'startScreen');
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
+        
     }
 
 
@@ -105,7 +103,6 @@ var paralaxLayer;
 var mapgroup;
 
 function create() {
-
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
