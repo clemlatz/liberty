@@ -1,7 +1,6 @@
 io.on('initia', function(obj){
     console.log('INITIA');
-	startScreen = game.add.sprite(0, 0, 'startScreen');
-    
+	
     var players = obj.players;
     var me = obj.player;
     var gamestatut = obj.gamestatut;
@@ -12,8 +11,11 @@ io.on('initia', function(obj){
     lesjoueurs.import(players);
 
     lesjoueurs.hider();
-
-    gamestart=true;
+    
+    startScreen = game.add.sprite(0, 0, 'startScreen');
+    startScreen.inputEnabled = true;
+	startScreen.events.onInputDown.add(function() { gamestart = true; }, this);
+    //gamestart=true;
 
     launchworld();
 });
