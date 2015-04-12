@@ -40,7 +40,7 @@ var map;
 
 
 var blockedLayer;
-var startScreen;
+
 launchworld = function(){
 
     var splayer = lesjoueurs.monjoueur().sprite;
@@ -55,7 +55,7 @@ launchworld = function(){
     splayer.body.collideWorldBounds = true;
 
 //    splayer.body.setSize(10, 14, 2, 1);
-
+	document.getElementById('startScreen').style.display = "none";
     game.camera.follow(splayer);
 }
 
@@ -77,7 +77,6 @@ io.on('time', function(time){
     {
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
-		startScreen = game.add.sprite(0, 0, 'startScreen');
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
         
     }
@@ -150,7 +149,7 @@ function create() {
     maskGroup.add(maskGraphicsExt);*/
 
     mapgroup.mask = maskGraphics;
-startScreen.kill();
+
     goFullScreen();
 
 	/** Audio **/
