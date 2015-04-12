@@ -189,6 +189,8 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 
+    game.physics.startSystem(Phaser.physics.ARCADE);
+
     var resp="";
 
     while (resp=="" || resp==null){
