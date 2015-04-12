@@ -4,8 +4,11 @@ function preload() {
 
 
 
-    game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
+ //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
+ //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
+
+    game.load.tilemap('level1', 'assets/tilemaps/final.txt', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('gameTiles', 'assets/tilemaps/sprite_fontFINAL.png');
 
     game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
@@ -80,15 +83,18 @@ io.on('start', function(config){
 
 });
 
+var blockedLayer;
+
 launchworld = function(){
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-    map.addTilesetImage('sprite_font', 'gameTiles');
+    map.addTilesetImage('sprite_fontFINAL', 'gameTiles');
 
     //create layer
     var backgroundlayer = map.createLayer('groundLayer');
-    var blockedLayer = map.createLayer('blockedLayer');
+    blockedLayer = map.createLayer('blockedLayer');
+    var paralaxLayer = map.createLayer('paralaxLayer');
 
     //collision on blockedLayer
     map.setCollisionBetween(1, 2000, true, 'blockedLayer');
@@ -99,6 +105,8 @@ launchworld = function(){
 
 
     var splayer = lesjoueurs.monjoueur().sprite;
+
+    game.physics.arcade.enable(splayer);
 
     game.world.bringToTop(splayer);
 //    game.world.addAt(backgroundlayer, 0);
@@ -181,6 +189,8 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
     var resp="";
 
     while (resp=="" || resp==null){
@@ -212,6 +222,8 @@ function create() {
 }
 
 function update() {
+
+    game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,null,null);
 
     if(cursors.right.isDown){
         var j = lesjoueurs.monjoueur();
