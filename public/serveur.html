@@ -87,6 +87,11 @@
         log('restarting')
         socket.emit('restart', true);
       });
+      
+      $('.stop').on('click', function() {
+        log('restarting')
+        socket.emit('stop', true);
+      });
     
     });
     
@@ -120,6 +125,7 @@
     <button class="start">start</button>
     <button class="restart">restart</button>
     <button class="kill">kill</button>
+    <button class="stop">stop</button>
   </div>
   
   <div id="log">
