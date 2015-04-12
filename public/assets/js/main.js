@@ -83,8 +83,8 @@ io.on('time', function(time){
     }else{
 		//show loading screen
     
-    startScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
-    startScreen.anchor.setTo(0.5);
+    startScreen = game.add.sprite(0, 0, 'startScreen');
+    
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }
 
