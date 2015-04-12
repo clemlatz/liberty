@@ -40,7 +40,7 @@ var map;
 
 
 var blockedLayer;
-var startScreen;
+
 launchworld = function(){
 
 
@@ -114,9 +114,9 @@ function create() {
     while (resp=="" || resp==null){
         resp = prompt("Entrez un pseudo","");
     }
-	startScreen.kill();
+	
     io.emit('name',resp);
-	startScreen.kill();
+
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
