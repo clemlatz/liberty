@@ -12,7 +12,7 @@ function preload() {
 
     game.load.spritesheet('prisoner', 'assets/images/sprite_anime-run.png', 64, 64, 6);
     game.load.spritesheet('prisonerdie', 'assets/images/sprite_anime-mort.png', 64, 64, 7);
-    game.load.spritesheet('guard', 'assets/images/interface_back.png', 37, 45, 18);
+    game.load.spritesheet('guard', 'assets/images/haloCrosshair.png', 64, 64, 1);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
