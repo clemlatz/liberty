@@ -109,7 +109,7 @@ function create() {
 	var startGame = false;
 	startScreen.events.onInputDown.add(function() {startScreen.kill(); startGame = true;}, this);
 	
-	while(!startGame){};
+	
 	
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
