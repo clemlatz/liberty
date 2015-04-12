@@ -177,8 +177,7 @@ io.on('connection', function(socket) {
   socket.emit('connected', app_version);
   
   io.on('stop', function() {
-    socket.emit('stop', true);
-    socket.broadcast.emit('stop', true);
+   game.stop();
     log('manual stop')
   });
   
