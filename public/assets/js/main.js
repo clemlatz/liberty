@@ -2,8 +2,10 @@ var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preloa
 
 function preload() {
 
+	/** load startScreen **/
+	game.load.image('startScreen', 'assets/images/startScreen.png');
 
-
+    
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
  //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
 
@@ -12,11 +14,13 @@ function preload() {
 
     game.load.spritesheet('prisoner', 'assets/images/sprite_anime-run.png', 64, 64, 6);
     game.load.spritesheet('prisonerdie', 'assets/images/sprite_anime-mort.png', 64, 64, 7);
-    game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
+    game.load.spritesheet('guard', 'assets/images/haloCrosshair.png', 64, 64, 1);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
-
-    game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
+	
+/** load audio **/
+	game.load.audio('gameplay', 'assets/sounds/Music_Gameplay_Final_.ogg');
+    //game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
 
 }
 
@@ -36,7 +40,7 @@ var map;
 
 
 var blockedLayer;
-
+var startScreen;
 launchworld = function(){
 
 
@@ -54,7 +58,6 @@ launchworld = function(){
 //    splayer.body.setSize(10, 14, 2, 1);
 
     game.camera.follow(splayer);
-
 }
 
 io.on('stop', function(self){
@@ -75,8 +78,13 @@ io.on('time', function(time){
 
     if (gamestart)
     {
+		startScreen.kill();
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
+		//show loading screen
+    
+    startScreen = game.add.sprite(0, 0, 'startScreen');
+    
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }
 
@@ -105,15 +113,15 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-
+	
     var resp="";
 
     while (resp=="" || resp==null){
         resp = prompt("Entrez un pseudo","");
     }
-
+	startScreen.kill();
     io.emit('name',resp);
-
+	startScreen.kill();
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
@@ -152,7 +160,9 @@ function create() {
 
     goFullScreen();
 
-
+	/** Audio **/
+	var sound = game.add.audio('gameplay',1, true);
+	sound.play();
     //var music = game.add.audio('Music');
     //music = game.sound.play('Music');
     /*

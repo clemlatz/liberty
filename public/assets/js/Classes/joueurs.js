@@ -7,6 +7,10 @@ Joueurs = function(){
     var monjoueur=0;
     var myid;
 
+    var guard= new Array(10);
+
+    var nbguard;
+
     this.add = function (joueur)
     {
 
@@ -69,9 +73,11 @@ Joueurs = function(){
         }
     }
 
-    /**
-     * Efface l'ensemble des sprites
-     */
+    this.getguardposition= function(){
+
+        return guard;
+    }
+
     this.clear = function(){
 
         for (index = 0; index < nbjoueur; index++) {
@@ -80,11 +86,9 @@ Joueurs = function(){
 
         }
         nbjoueur=0;
+        nbguard=0;
     }
 
-    /**
-     * Retourne mon joueur
-     */
     this.monjoueur = function(){
 
         for (index = 0; index < nbjoueur; index++) {
@@ -94,13 +98,13 @@ Joueurs = function(){
                 //  console.log(tabjoueurs[index]);
                 return tabjoueurs[index];
             }
-
-
         }
 
     }
 
     this.import= function(players){
+
+
 
         for (index = 0; index < players.length; index++) {
 
@@ -119,6 +123,10 @@ Joueurs = function(){
 
             this.add(j);
 
+            if (players[index].type == 'guard'){
+                guard[index]={'x':players[index].x,'y':players[index].y};
+                nbguard++;
+            }
         }
 
     }

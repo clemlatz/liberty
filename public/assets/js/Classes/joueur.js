@@ -44,16 +44,19 @@ Joueur = function(id,type,isowner){
 
     this.velocity = function(vx,vy){
 
-        this.sprite.body.velocity.x =vx;
-        this.sprite.body.velocity.y =vy;
+        if (this.sprite.body!=null){
 
-        this.x=this.sprite.x;
-        this.y=this.sprite.y;
+            this.sprite.body.velocity.x =vx;
+            this.sprite.body.velocity.y =vy;
 
-        if (vx!=0 || vy!=0){
-            this.animstart();
+            this.x=this.sprite.x;
+            this.y=this.sprite.y;
+
+            if (vx!=0 || vy!=0){
+                this.animstart();
+            }
+            this.updateposition(this.x,this.y);
         }
-        this.updateposition(this.x,this.y);
     }
 
     this.animstart = function(){
