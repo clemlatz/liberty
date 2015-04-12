@@ -57,7 +57,6 @@ launchworld = function(){
 //    splayer.body.setSize(10, 14, 2, 1);
 
     game.camera.follow(splayer);
-startScreen = game.add.sprite(200, 40, 'startScreen');
 }
 
 io.on('stop', function(self){
@@ -104,7 +103,14 @@ var paralaxLayer;
 var mapgroup;
 
 function create() {
-
+	startScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
+	startScreen.anchor.set(0.5);
+	startScreen.inputEnabled = true;
+	var startGame = false;
+	startScreen.events.onInputDown.add(function() {startScreen.kill(); startGame = true;}, this);
+	
+	while(!startGame){};
+	
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
