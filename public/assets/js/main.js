@@ -3,7 +3,7 @@ var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preloa
 function preload() {
 
 	/** load startScreen **/
-	game.load.image('startScreen', 'assets/images/startScreen.png');
+
 
     
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
@@ -12,8 +12,7 @@ function preload() {
     game.load.tilemap('level1', 'assets/tilemaps/final.txt', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('gameTiles', 'assets/tilemaps/sprite_fontFINAL.png');
 
-    game.load.spritesheet('prisoner', 'assets/images/sprite_anime-run.png', 64, 64, 6);
-    game.load.spritesheet('prisonerdie', 'assets/images/sprite_anime-mort.png', 64, 64, 7);
+    game.load.spritesheet('prisoner', 'assets/sprites/sprite_character.png', 64, 64, 21);
     game.load.spritesheet('guard', 'assets/images/haloCrosshair.png', 64, 64, 1);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
