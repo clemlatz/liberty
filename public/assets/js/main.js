@@ -78,10 +78,9 @@ io.on('time', function(time){
 
     if (gamestart)
     {
-		startScreen.kill();
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
-		startScreen = game.add.sprite(0, 0, 'startScreen');
+		
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
         
     }
@@ -107,7 +106,7 @@ var paralaxLayer;
 var mapgroup;
 
 function create() {
-
+startScreen = game.add.sprite(0, 0, 'startScreen');
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
