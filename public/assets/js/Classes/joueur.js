@@ -43,17 +43,18 @@ Joueur = function(id,type,isowner){
     }
 
     this.velocity = function(vx,vy){
+		if(this.sprite.body != null) {
+			this.sprite.body.velocity.x =vx;
+			this.sprite.body.velocity.y =vy;
 
-        this.sprite.body.velocity.x =vx;
-        this.sprite.body.velocity.y =vy;
+			this.x=this.sprite.x;
+			this.y=this.sprite.y;
 
-        this.x=this.sprite.x;
-        this.y=this.sprite.y;
-
-        if (vx!=0 || vy!=0){
-            this.animstart();
-        }
-        this.updateposition(this.x,this.y);
+			if (vx!=0 || vy!=0){
+				this.animstart();
+			}
+			this.updateposition(this.x,this.y);
+		}
     }
 
     this.animstart = function(){
