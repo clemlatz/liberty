@@ -3,7 +3,7 @@ var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preloa
 function preload() {
 
 	/** load startScreen **/
-	game.load.image('startScreen', 'assets/images/startScreen.png');
+
 
     
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);

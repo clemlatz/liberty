@@ -10,7 +10,7 @@ Joueur = function(id,type,isowner){
 
     this.name='test';
     this.sprite=game.add.sprite(x,y,type,1);
-    this.animation=this.sprite.animations.add('walk',[15,16,17,18,19,20], 6, true, true);
+    this.animation=this.sprite.animations.add('walk',[14,15,16,17,18,19], 6, true, true);
     this.dieanimate=this.sprite.animations.add('die',[0,1,2,3,4,5,6], 7, false, true);
 
     this.updatepos= function(x,y){
@@ -65,7 +65,6 @@ Joueur = function(id,type,isowner){
 
 //        this.sprite.animations.play('die',4,false);
         this.sprite.animations.play('walk',10,false);
-
     }
 
     this.animstop = function(){

@@ -60,22 +60,25 @@ Joueurs = function(){
                 tabjoueurs[index].sprite.x=joueur.x;
                 tabjoueurs[index].sprite.y=joueur.y;
 
-                if(joueur.type=='guard'){
-                //    tabjoueurs[index].sprite=
-                    maskGraphics.clear();
-                    maskGraphics.drawEllipse(joueur.x, joueur.y,200,130);
-                    maskGraphics.beginFill(0xffffff);
-                    maskGraphics.endFill();
+              //  console.log(tabjoueurs[index].type);
+                if(joueur.role=='guard'){
+
+//                console.log('guard'+joueur.x);
+                        game.world.bringToTop(joueur.sprite);
                 }
             }
-
-
         }
     }
 
-    this.getguardposition= function(){
+    this.getguardposition = function(){
 
-        return guard;
+        var gu = new Array(nbguard);
+     //   console.log(nbguard);
+        for(index=0;index<nbguard;index++){
+            gu[index]={'x':tabjoueurs[guard[index]].x,'y':tabjoueurs[guard[index]].y};
+        }
+
+        return gu;
     }
 
     this.clear = function(){
@@ -104,8 +107,6 @@ Joueurs = function(){
 
     this.import= function(players){
 
-
-
         for (index = 0; index < players.length; index++) {
 
             if (players[index].id == this.myid){
@@ -123,8 +124,10 @@ Joueurs = function(){
 
             this.add(j);
 
-            if (players[index].type == 'guard'){
-                guard[index]={'x':players[index].x,'y':players[index].y};
+
+            if (players[index].role == 'guard'){
+                //console.log(players[index]);
+                guard[index]=index;
                 nbguard++;
             }
         }
