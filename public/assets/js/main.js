@@ -4,12 +4,7 @@ function preload() {
 
 	/** load startScreen **/
 	game.load.image('startScreen', 'assets/images/startScreen.png');
-//show loading screen
-    
-    game.preloadScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
-    game.preloadScreen.anchor.setTo(0.5);
 
-    game.load.setPreloadSprite(game.preloadScreen);
     
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
  //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
@@ -83,8 +78,13 @@ io.on('time', function(time){
 
     if (gamestart)
     {
+		startScreen.kill();
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
+		//show loading screen
+    
+    startScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
+    startScreen.anchor.setTo(0.5);
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }
 
