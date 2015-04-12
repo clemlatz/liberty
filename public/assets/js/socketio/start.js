@@ -1,5 +1,5 @@
 io.on('start', function(config){
-
+	
     console.log('START');
     lesjoueurs.clear();
     gamestart=true;

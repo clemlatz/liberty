@@ -2,8 +2,10 @@ var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preloa
 
 function preload() {
 
+	/** load startScreen **/
+	game.load.image('startScreen', 'assets/images/startScreen.png');
 
-
+    
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
  //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
 
@@ -14,7 +16,7 @@ function preload() {
     game.load.spritesheet('guard', 'assets/images/haloCrosshair.png', 64, 64, 1);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
-
+	
 /** load audio **/
 	game.load.audio('gameplay', 'assets/sounds/Music_Gameplay_Final_.ogg');
     //game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
@@ -24,7 +26,7 @@ function preload() {
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect('http://libertyjam.azurewebsites.net/');
+var io = io.connect();
 
 
 var gamestart = false;
@@ -40,7 +42,6 @@ var blockedLayer;
 
 launchworld = function(){
 
-
     var splayer = lesjoueurs.monjoueur().sprite;
 
 
@@ -53,17 +54,14 @@ launchworld = function(){
     splayer.body.collideWorldBounds = true;
 
 //    splayer.body.setSize(10, 14, 2, 1);
-
+	document.getElementById('startScreen').style.display = "none";
     game.camera.follow(splayer);
-
 }
 
 io.on('stop', function(self){
 
     lesjoueurs.monjoueur().die();
     console.log('STOP');
-
-
 });
 
 var labeltime;
@@ -79,6 +77,7 @@ io.on('time', function(time){
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
+        
     }
 
 
@@ -102,17 +101,16 @@ var paralaxLayer;
 var mapgroup;
 
 function create() {
-
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-
+	
     var resp="";
 
     while (resp=="" || resp==null){
         resp = prompt("Entrez un pseudo","");
     }
-
+	
     io.emit('name',resp);
 
     map = game.add.tilemap('level1',64,64);
@@ -206,4 +204,3 @@ function render() {
       //  game.debug.bodyInfo(lesjoueurs.monjoueur().sprite, 32, 320);
     }
 }
-
