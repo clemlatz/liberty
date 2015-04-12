@@ -72,13 +72,22 @@ function update() {
                 maskGraphics.lineTo(lastX,lastY);
             }
             maskGraphics.lineTo(player.x+player.width/2,player.y);
+
+            var g = lesjoueurs.getguardposition();
+
+
+            for (index=0;index< g.length;index++){
+                maskGraphics.drawEllipse(g.x,g.y,200,130);
+            }
+
+
             maskGraphics.endFill();
             /*
             backgroundlayer.alpha = 0.5+Math.random()*0.5;
             blockedLayer.alpha = 0.5+Math.random()*0.5;
             paralaxLayer.alpha = 0.5+Math.random()*0.5;
 */
-            mapgroup.alpha = 0.1+Math.random()*0.5;
+            backgroundlayer.alpha = 0.1+Math.random()*0.5;
 
         }
         if  (lesjoueurs.monjoueur().type=='guard'){
