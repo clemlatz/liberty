@@ -73,13 +73,15 @@ function update() {
             }
             maskGraphics.lineTo(player.x+player.width/2,player.y);
 
+            /*
             var g = lesjoueurs.getguardposition();
 
+          //  console.log(g);
 
             for (index=0;index< g.length;index++){
-                maskGraphics.drawEllipse(g.x,g.y,200,130);
-            }
-
+               // console.log(g[index].x);
+                maskGraphics.drawEllipse(g[index].x,g[index].y,200,130);
+            }*/
 
             maskGraphics.endFill();
             /*

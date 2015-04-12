@@ -7,6 +7,7 @@ io.on('join', function(player){
     j.x=player.x;
     j.y=player.y;
 
+
     lesjoueurs.add(j);
     lesjoueurs.hider();
 });
