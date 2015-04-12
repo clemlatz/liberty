@@ -6,7 +6,7 @@ function preload() {
 	game.load.image('startScreen', 'assets/images/startScreen.png');
 //show loading screen
     
-    game.preloadScreen = game.add.sprite(game.world.centerX, game.game.world.centerY, 'startScreen');
+    game.preloadScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
     game.preloadScreen.anchor.setTo(0.5);
 
     game.load.setPreloadSprite(game.preloadScreen);
