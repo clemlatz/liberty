@@ -15,7 +15,7 @@ io.on('initia', function(obj){
     var startScreen = game.add.sprite(0, 0, 'startScreen');
     startScreen.inputEnabled = true;
 	startScreen.events.onInputDown.add(function() { startScreen.kill(); gamestart = true; }, this);
-    //gamestart=true;
+    gamestart=true;
 
     launchworld();
 });
