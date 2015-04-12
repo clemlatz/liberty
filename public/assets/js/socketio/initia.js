@@ -8,8 +8,8 @@ io.on('initia', function(obj){
     lesjoueurs.clear();
 
     lesjoueurs.myid = me.id;
+ //   console.log(players);
     lesjoueurs.import(players);
-
     lesjoueurs.hider();
 	
     gamestart=true;
