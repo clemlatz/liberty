@@ -60,7 +60,7 @@ launchworld = function(){
 
 io.on('stop', function(){
     console.log('STOP');
-  //  lesjoueurs.monjoueur().die();
+   lesjoueurs.monjoueur().die();
 });
 
 io.on('killed', function(joueur){
