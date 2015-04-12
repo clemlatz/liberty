@@ -78,6 +78,7 @@ io.on('time', function(time){
 
     if (gamestart)
     {
+		startScreen.kill();
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
 		startScreen = game.add.sprite(0, 0, 'startScreen');
