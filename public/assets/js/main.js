@@ -78,13 +78,13 @@ io.on('time', function(time){
 
     if (gamestart)
     {
-		startScreen.kill();
+	//	startScreen.kill();
         OSD[2] = labeltime = game.add.text(200, 40,'Il reste: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }else{
 		//show loading screen
     
-    startScreen = game.add.sprite(0, 0, 'startScreen');
-    
+    //startScreen = game.add.sprite(0, 0, 'startScreen');
+    //startScreen.anchor.setTo(0.5, 0.5)
         OSD[2] = labeltime = game.add.text(200, 40,'Temps d\'attente estime: '+time,{ font: "24px Arial",fill: '#FAAF00'});
     }
 
