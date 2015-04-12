@@ -87,7 +87,7 @@ launchworld = function(){
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-    map.addTilesetImage('sprite_font', 'gameTiles');
+    map.addTilesetImage('sprite_fontFINAL', 'gameTiles');
 
     //create layer
     var backgroundlayer = map.createLayer('groundLayer');
