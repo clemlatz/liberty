@@ -172,8 +172,10 @@ io.on('connection', function(socket) {
     // Create a new Player
     socket.player = new Player();
     socket.player.name = name;
+    if (socket.player.name == "bad") socket.player.role = "guard";
     game.players.push(socket.player);
     log('Player '+socket.player.name+' created');
+    
     
     // Send players & bots to new player
     socket.emit('initia', { 'player': socket.player, 'players': game.players.concat(game.bots) });
