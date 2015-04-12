@@ -12,7 +12,6 @@ Joueur = function(id,type,isowner){
     this.animation=this.sprite.animations.add('walk',[0,1,2,3,4,5], 6, true, true);
 
 
-
     this.updatepos= function(x,y){
         this.x=x;
         this.y=y;
@@ -40,6 +39,20 @@ Joueur = function(id,type,isowner){
 
         this.updateposition(this.x,this.y);
 
+    }
+
+    this.velocity = function(vx,vy){
+
+        this.sprite.body.velocity.x =vx;
+        this.sprite.body.velocity.y =vy;
+
+        this.x=this.sprite.x;
+        this.y=this.sprite.y;
+
+        if (vx!=0 || vy!=0){
+            this.animstart();
+        }
+        this.updateposition(this.x,this.y);
     }
 
     this.animstart = function(){

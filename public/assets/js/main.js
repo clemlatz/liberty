@@ -1,4 +1,4 @@
-var game = new Phaser.Game(1024, 768, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create ,update:update, render: render});
+var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create ,update:update, render: render});
 
 function preload() {
 
@@ -15,13 +15,10 @@ function preload() {
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
-//    game.load.audio('Music', 'assets/sounds/Music_Gameplay.wav');
+    game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
 
 }
 
-var bpmText;
-
-var myid;
 
 var lesjoueurs = new Joueurs();
 
@@ -96,8 +93,6 @@ launchworld = function(){
     game.world.bringToTop(splayer);
 //    game.world.addAt(backgroundlayer, 0);
 
-
-
     splayer.body.collideWorldBounds = true;
 
 //    splayer.body.setSize(10, 14, 2, 1);
@@ -164,6 +159,7 @@ function goFullScreen(){
     game.scale.setScreenSize(true);
 }
 
+var music;
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -193,16 +189,20 @@ function create() {
     // blockedLayer.debug=true;
 
     //collision on blockedLayer
-   // map.setCollision(23,true,blockedLayer);
-    map.setCollisionBetween(1,25);
+  //  map.setCollision(23);
+   // map.setCollision(25);
+    map.setCollisionBetween(1,25,true,blockedLayer);
+
+
 
     //resizes the game world to match the layer dimensions
 
 
     goFullScreen();
-    /*  var music = game.add.audio('Music');
-     music.volume = 1;
-     music.play();*/
+
+
+    //var music = game.add.audio('Music');
+    music = game.sound.play('Music');
     /*
      game.scale.pageAlignHorizontally = true;
      game.scale.pageAlignVertically = true;
@@ -222,39 +222,40 @@ function create() {
 }
 
 function collideevt(var1,var2){
-console.log(var1);
+//console.log(var1);
   //  console.log(var2);
+
+console.log('collide');
 }
 
 function update() {
 
-    if (gamestart){
-//        console.log(blockedLayer);
-       // game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,function(a,b){console.log(a);},null,this);
-        game.physics.arcade.collide(lesjoueurs.monjoueur(),'blockedLayer');
-    }
+    var vx = 0;
+    var vy = 0;
 
     if(cursors.right.isDown){
-        var j = lesjoueurs.monjoueur();
-        j.moveoffset(5,0);
-        j.animstart();
+        vx=150;
     }
     if(cursors.left.isDown){
-        var j = lesjoueurs.monjoueur();
-        j.moveoffset(-5,0);
-        j.animstart();
+        vx=-150;
     }
     if(cursors.up.isDown){
-        var j = lesjoueurs.monjoueur();
-        j.moveoffset(0,-5);
-        j.animstart();
+       vy=-150;
     }
     if(cursors.down.isDown){
-        var j = lesjoueurs.monjoueur();
-        j.moveoffset(0,5);
-        j.animstart();
+        vy=150;
     }
 
+    if (gamestart){
+//        console.log(blockedLayer);
+        // game.physics.arcade.overlap(lesjoueurs.monjoueur(),blockedLayer,function(a,b){console.log(a);},null,this);
+        game.physics.arcade.overlap(lesjoueurs.monjoueur().sprite,blockedLayer,collideevt,null,this)
+
+        var j = lesjoueurs.monjoueur()
+        j.velocity(vx,vy);
+
+
+    }
 }
 
 function updateplayer(player){
@@ -271,5 +272,15 @@ function onDragStart(sprite, pointer) {
 
 function render() {
     // game.debug.inputInfo(32, 32);
+    game.debug.soundInfo(music, 32, 32);
+
+    if (music.isDecoding)
+    {
+        game.debug.text("Decoding MP3 ...", 32, 200);
+    }
+
+    if (gamestart){
+      //  game.debug.bodyInfo(lesjoueurs.monjoueur().sprite, 32, 320);
+    }
 }
 
