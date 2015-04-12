@@ -242,7 +242,7 @@ function createTraps() {
     result.forEach(function(element){
       this.createFromTiledObject(element, game.traps);
     }, this);
-  },
+  }
 
  //find objects in a Tiled layer that containt a property called "type" equal to a certain value
   function findObjectsByType(type, map, layer) {
