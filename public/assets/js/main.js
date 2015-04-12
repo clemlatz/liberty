@@ -4,8 +4,11 @@ function preload() {
 
 
 
-    game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
+ //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
+ //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
+
+    game.load.tilemap('level1', 'assets/tilemaps/proto_final.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('gameTiles', 'assets/tilemaps/sprite_fontFINAL.png');
 
     game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
