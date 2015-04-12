@@ -90,6 +90,9 @@ Joueurs = function(){
             var j  = new Joueur(players[index].id,players[index].role,isowner);
             j.x=players[index].x;
             j.y=players[index].y;
+            
+            j.sprite.x = players[index].x;
+            j.sprite.y = players[index].y;
 
             this.add(j);
 
