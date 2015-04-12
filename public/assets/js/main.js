@@ -189,7 +189,7 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    game.physics.startSystem(Phaser.physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     var resp="";
 
@@ -199,7 +199,7 @@ function create() {
 
     io.emit('name',resp);
 
-   // goFullScreen();
+    goFullScreen();
     /*  var music = game.add.audio('Music');
      music.volume = 1;
      music.play();*/
