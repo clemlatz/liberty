@@ -108,7 +108,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-	var startScreen = game.add.sprite(0, 0, 'startScreen');;
+	var startScreen = game.add.sprite(200, 40, 'startScreen');
     var resp="";
 
     while (resp=="" || resp==null){
