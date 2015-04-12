@@ -83,6 +83,8 @@ io.on('start', function(config){
 
 });
 
+var blockedLayer;
+
 launchworld = function(){
     map = game.add.tilemap('level1',64,64);
 
@@ -91,7 +93,7 @@ launchworld = function(){
 
     //create layer
     var backgroundlayer = map.createLayer('groundLayer');
-    var blockedLayer = map.createLayer('blockedLayer');
+    blockedLayer = map.createLayer('blockedLayer');
     var paralaxLayer = map.createLayer('paralaxLayer');
 
     //collision on blockedLayer
