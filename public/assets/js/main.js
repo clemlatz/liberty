@@ -59,9 +59,9 @@ launchworld = function(){
 }
 
 io.on('stop', function(self){
-
-    lesjoueurs.monjoueur().die();
     console.log('STOP');
+    lesjoueurs.monjoueur().die();
+
 });
 
 var labeltime;
