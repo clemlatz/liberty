@@ -26,7 +26,7 @@ function preload() {
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect();
+var io = io.connect('http://libertyjam.azurewebsites.net/');
 
 
 var gamestart = false;
@@ -58,9 +58,14 @@ launchworld = function(){
     game.camera.follow(splayer);
 }
 
-io.on('stop', function(self){
+io.on('stop', function(){
     console.log('STOP');
-    lesjoueurs.monjoueur().die();
+  //  lesjoueurs.monjoueur().die();
+});
+
+io.on('killed', function(joueur){
+    console.log('killed');
+    //lesjoueurs.monjoueur().die();
 
 });
 

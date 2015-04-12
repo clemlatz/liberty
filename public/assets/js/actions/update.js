@@ -25,6 +25,8 @@ function update() {
                 vy=150;
             }
 
+
+
             game.physics.arcade.overlap(lesjoueurs.monjoueur().sprite,blockedLayer,collideevt,null,this);
 
             var j = lesjoueurs.monjoueur()
@@ -106,8 +108,10 @@ function update() {
                 vy=-vmoyen;
             }
             if(cursors.down.isDown){
-                vy=vmoyen;
+                vy=+vmoyen;
+
             }
+
 
             var j = lesjoueurs.monjoueur()
             j.velocity(vx,vy);
