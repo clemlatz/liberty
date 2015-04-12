@@ -102,9 +102,9 @@ launchworld = function(){
     //resizes the game world to match the layer dimensions
     backgroundlayer.resizeWorld();
 
-
-
     var splayer = lesjoueurs.monjoueur().sprite;
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.physics.arcade.enable(splayer);
 
@@ -187,9 +187,10 @@ function goFullScreen(){
 
 function create() {
 
+
+
     cursors = game.input.keyboard.createCursorKeys();
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     var resp="";
 
