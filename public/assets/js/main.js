@@ -10,7 +10,7 @@ function preload() {
     game.load.spritesheet('prisoner', 'assets/sprites/new/RUN.png', 64, 64, 1);
     game.load.spritesheet('guard', 'assets/sprites/metalslug_mummy37x45.png', 37, 45, 18);
 
-  //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
+    //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
 
 //    game.load.audio('Music', 'assets/sounds/Music_Gameplay.wav');
 
@@ -44,8 +44,8 @@ io.on('join', function(player){
 });
 
 io.on('leave', function(player){
-console.log('LEAVE');
-lesjoueurs.delete(player.id);
+    console.log('LEAVE');
+    lesjoueurs.delete(player.id);
 //    lesjoueurs.add(j);
 });
 
@@ -190,9 +190,9 @@ function create() {
     io.emit('name',resp);
 
     goFullScreen();
-  /*  var music = game.add.audio('Music');
-    music.volume = 1;
-    music.play();*/
+    /*  var music = game.add.audio('Music');
+     music.volume = 1;
+     music.play();*/
     /*
      game.scale.pageAlignHorizontally = true;
      game.scale.pageAlignVertically = true;
@@ -245,3 +245,4 @@ function onDragStart(sprite, pointer) {
 function render() {
     // game.debug.inputInfo(32, 32);
 }
+
