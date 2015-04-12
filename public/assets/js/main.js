@@ -39,7 +39,7 @@ var map;
 
 
 var blockedLayer;
-
+var startScreen = game.add.sprite(200, 40, 'startScreen');
 launchworld = function(){
 
 
@@ -108,7 +108,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
-	var startScreen = game.add.sprite(200, 40, 'startScreen');
+	
     var resp="";
 
     while (resp=="" || resp==null){
@@ -116,7 +116,7 @@ function create() {
     }
 
     io.emit('name',resp);
-	startScreen.destroy();
+	startScreen.kill();
     map = game.add.tilemap('level1',64,64);
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
