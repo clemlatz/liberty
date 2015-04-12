@@ -39,7 +39,7 @@ var map;
 
 
 var blockedLayer;
-var startScreen = game.add.sprite(200, 40, 'startScreen');
+var startScreen = this.add.sprite(200, 40, 'startScreen');
 launchworld = function(){
 
 
