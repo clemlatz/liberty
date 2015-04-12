@@ -4,7 +4,13 @@ function preload() {
 
 	/** load startScreen **/
 	game.load.image('startScreen', 'assets/images/startScreen.png');
+//show loading screen
+    
+    game.preloadScreen = game.add.sprite(game.game.world.centerX, game.game.world.centerY, 'startScreen');
+    game.preloadScreen.anchor.setTo(0.5);
 
+    game.load.setPreloadSprite(game.preloadScreen);
+    
  //  game.load.tilemap('level1', 'assets/tilemaps/text.txt', null, Phaser.Tilemap.TILED_JSON);
  //   game.load.image('gameTiles', 'assets/tilemaps/sprite_font.png');
 
@@ -16,7 +22,7 @@ function preload() {
     game.load.spritesheet('guard', 'assets/images/haloCrosshair.png', 64, 64, 1);
 
     //  game.load.spritesheet('prisoner', 'assets/sprites/spaceman.png', 16, 16);
-
+	
 /** load audio **/
 	game.load.audio('gameplay', 'assets/sounds/Music_Gameplay_Final_.ogg');
     //game.load.audio('Music',['assets/sounds/SFX_Gun1.mp3','assets/sounds/SFX_Gun1.ogg'] );
@@ -103,9 +109,7 @@ var paralaxLayer;
 var mapgroup;
 
 function create() {
-	startScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
-	startScreen.anchor.set(0.5);
-	console.log(startScreen);
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
