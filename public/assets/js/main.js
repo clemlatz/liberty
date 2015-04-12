@@ -105,12 +105,7 @@ var mapgroup;
 function create() {
 	startScreen = game.add.sprite(game.world.centerX, game.world.centerY, 'startScreen');
 	startScreen.anchor.set(0.5);
-	startScreen.inputEnabled = true;
-	var startGame = false;
-	startScreen.events.onInputDown.add(function() {startScreen.kill(); startGame = true;}, this);
-	
-	
-	
+	console.log(startScreen);
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -120,7 +115,7 @@ function create() {
     while (resp=="" || resp==null){
         resp = prompt("Entrez un pseudo","");
     }
-
+	startScreen.kill();
     io.emit('name',resp);
 	startScreen.kill();
     map = game.add.tilemap('level1',64,64);
