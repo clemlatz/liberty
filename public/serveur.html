@@ -12,9 +12,16 @@
     
     /* INIT */
     
+    var players = [];
+    
     socket.on('connected', function(version) {
       console.log('Connected on Liberty server v'+version);
       $('.start').show();
+    });
+    
+    socket.on('join', function(player) {
+      log(player.name+' joined');
+      players.push(player);
     });
     
     /* SERVER SIDE EVENTS */
@@ -24,7 +31,8 @@
     });
     
     // Receive player list (on connection)
-    socket.on('players', function(players){
+    socket.on('players', function(list){
+      players = list;
       log('Received players list');
       log(players);
       $('.players').text(players.length)
@@ -38,13 +46,18 @@
     
     // Receive player updated
     socket.on('player', function(player){
-      log('Player updated');
-      log(player);
+      // log('Player updated');
+      // log(player);
     });
     
     // Receive time left (every second)
     socket.on('time', function(time){
       $('.time').text(time);
+    });
+    
+    // Player was killed
+    socket.on('killed', function(player_id) {
+      log(player_id+' was killed');
     });
     
     // Receiving log
@@ -63,19 +76,16 @@
           socket.emit('name', name);
         }
       });
-    
-      // Client moving up
-      $('.move-up').on('click', function() {
-        socket.emit('move', 'up');
+      
+      $('.kill').on('click', function() {
+        var player_id = players[0].id;
+        log('Killing '+player_id)
+        socket.emit('kill', player_id);
       });
-      $('.move-right').on('click', function() {
-        socket.emit('move', 'right');
-      });
-      $('.move-left').on('click', function() {
-        socket.emit('move', 'left');
-      });
-      $('.move-down').on('click', function() {
-        socket.emit('move', 'down');
+      
+      $('.restart').on('click', function() {
+        log('restarting')
+        socket.emit('restart', true);
       });
     
     });
@@ -108,6 +118,8 @@
     <span class="players">0</span> players | 
     <span class="time">0</span> seconds left
     <button class="start">start</button>
+    <button class="restart">restart</button>
+    <button class="kill">kill</button>
   </div>
   
   <div id="log">
