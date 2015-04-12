@@ -92,6 +92,7 @@ launchworld = function(){
     //create layer
     var backgroundlayer = map.createLayer('groundLayer');
     var blockedLayer = map.createLayer('blockedLayer');
+    var paralaxLayer = map.createLayer('paralaxLayer');
 
     //collision on blockedLayer
     map.setCollisionBetween(1, 2000, true, 'blockedLayer');
@@ -192,7 +193,7 @@ function create() {
 
     io.emit('name',resp);
 
-    goFullScreen();
+   // goFullScreen();
     /*  var music = game.add.audio('Music');
      music.volume = 1;
      music.play();*/
