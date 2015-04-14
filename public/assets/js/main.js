@@ -1,4 +1,28 @@
-var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create ,update:update, render: render});
+
+// Load game in canvas
+var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'gameScreen', { preload: preload, create: create ,update:update, render: render});
+
+// When the DOM is ready
+$(document).ready( function() {
+  
+  // When start screen is clicked
+  $('#startScreen').on('click', function() {
+    
+    // Ask for the player's name
+    var username = null;
+    while (username === "" || username === null) {
+      username = prompt("Enter your name", localStorage.username);
+    }
+    
+    // Save user name
+    localStorage.username = username; 
+    
+    // Hide start screen & show game screen
+    $('#startScreen').hide();
+  });
+
+});
+
 
 function preload() {
 
@@ -26,7 +50,7 @@ function preload() {
 
 var lesjoueurs = new Joueurs();
 
-var io = io.connect('http://libertyjam.azurewebsites.net/');
+var io = io.connect();
 
 
 var gamestart = false;
@@ -54,7 +78,6 @@ launchworld = function(){
     splayer.body.collideWorldBounds = true;
 
 //    splayer.body.setSize(10, 14, 2, 1);
-	document.getElementById('startScreen').style.display = "none";
     game.camera.follow(splayer);
 }
 
@@ -111,10 +134,6 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
 	
     var resp="";
-
-    while (resp=="" || resp==null){
-        resp = prompt("Entrez un pseudo","");
-    }
 	
     io.emit('name',resp);
 
