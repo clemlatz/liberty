@@ -26,26 +26,24 @@
     <style>
         body {
             background-color: black;
+            margin: 0;
+            padding: 0;
         }
         #startScreen {
-          height: 100%;
-          width: 100%;
           text-align: center;
         }
-        #startScreen img {
-          max-height: 100%;
-          max-width: 100%;
+        #startImage {
           cursor: pointer;
         }
         #gameScreen {
-          /*display: none;*/
+          display: none;
         }
     </style>
 
   </head>
   <body>
     <div id="startScreen">
-      <img src="assets/images/startScreen.png" alt="startScreen">
+      <img src="assets/images/startScreen.png" id="startImage" alt="startScreen">
     </div>
     
     <div id="gameScreen">
