@@ -1,9 +1,16 @@
-
 // Load game in canvas
-var game = new Phaser.Game(1024, 1024, Phaser.CANVAS, 'gameScreen', { preload: preload, create: create ,update:update, render: render});
+var game = new Phaser.Game($(window).width(), $(window).height(), Phaser.CANVAS, 'gameScreen', { preload: preload, create: create ,update:update, render: render});
 
 // When the DOM is ready
 $(document).ready( function() {
+  
+  // Resize start image
+  $('#startImage').css({ 'max-width': $(window).width(), 'max-height': $(window).height() });
+  
+  // On windows resize
+  $(window).resize( function() {
+    $('#startImage').css({ 'max-width': $(window).width(), 'max-height': $(window).height() });
+  });
   
   // When start screen is clicked
   $('#startScreen').on('click', function() {
@@ -19,6 +26,7 @@ $(document).ready( function() {
     
     // Hide start screen & show game screen
     $('#startScreen').hide();
+    $('#gameScreen').show();
   });
 
 });
@@ -173,7 +181,7 @@ function create() {
 
     mapgroup.mask = maskGraphics;
 
-    goFullScreen();
+    // goFullScreen();
 
 	/** Audio **/
 	var sound = game.add.audio('gameplay',1, true);

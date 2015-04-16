@@ -1,6 +1,9 @@
 Changelog
 =========
 
+0.3 (2015-04-16)
+* Game screen and start screen size now correctly adapts to windows screen
+
 0.2 (2015-04-13)
 * The game now waits for the player to click the startscreen before prompting for username
 * Username is saved
